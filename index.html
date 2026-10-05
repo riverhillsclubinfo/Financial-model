@@ -332,6 +332,15 @@ html { scroll-behavior: smooth; }
 .hero .eyebrow-lines span { white-space: normal !important; font-size: clamp(.78rem, 1.25vw, 1rem); letter-spacing: .18em; line-height: 1.35; }
 .hero .eyebrow-lines::after { display: none !important; }
 .hero .eyebrow-lines::before { display: block !important; content: ""; flex: 0 0 28px; height: 2px; background: var(--gold); }
+.paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 14px; margin-top: 6px; }
+.path { background: rgba(255,255,255,.06); border: 1px solid rgba(201,185,122,.4); border-radius: 8px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
+.path .pk { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: #c9b97a; }
+.path h3 { font-family: var(--f-display); font-weight: 800; font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.05; color: #ffffff; }
+.path .cta-sub { font-size: 1.15rem !important; }
+.path p { color: #dcdccb; font-size: .92rem; line-height: 1.5; }
+.path p b { color: #ffffff; }
+.path-btn { justify-self: start; margin-top: 6px; background: #c9b97a; color: #2f3a23; border: 0; font-weight: 700; }
+.cta .cta-h { font-size: clamp(1.9rem, 4vw, 2.6rem) !important; }
 </style>
 </head>
 <body>
@@ -529,10 +538,23 @@ html { scroll-behavior: smooth; }
         <p class="cta-bl">Control is worth something. It also costs something.</p>
       </div>
     </div>
-    <h2 id="ctaTitle" class="cta-h">Vote YES on a second vote.</h2>
-    <p class="cta-sub">Bring Concert back to the table.</p>
-    <p class="cta-p">Nothing gets signed now. A second vote reopens talks with Concert, and members decide again knowing the full numbers.</p>
-    <div class="cta-do"><span class="do-k">How to help</span><span class="do-i"><b>1</b>Vote YES on a second vote</span><span class="do-i"><b>2</b>Talk with someone who voted No</span><span class="do-i"><b>3</b>Pass this along to members</span></div>
+    <h2 id="ctaTitle" class="cta-h">Two honest ways forward.</h2>
+    <div class="paths">
+      <div class="path">
+        <span class="pk">Option 1</span>
+        <h3>Vote YES on a second vote.</h3>
+        <p class="cta-sub">Bring Concert back to the table.</p>
+        <p>Nothing gets signed now. A second vote reopens talks with Concert, and members decide again knowing the full numbers.</p>
+      </div>
+      <div class="path">
+        <span class="pk">Option 2</span>
+        <h3>Fund the Board's plan for real.</h3>
+        <p class="cta-sub">Set the assessment to match the work.</p>
+        <p id="fundText"></p>
+        <button type="button" class="btn path-btn" id="loadRealistic">Try the realistic rates in the model</button>
+      </div>
+    </div>
+    <div class="cta-do"><span class="do-k">How to help</span><span class="do-i"><b>1</b>Vote YES on a second vote</span><span class="do-i"><b>2</b>Or ask the Board for a fully funded plan</span><span class="do-i"><b>3</b>Pass this along to members</span></div>
   </section>
 
   <section id="projects">
@@ -540,7 +562,7 @@ html { scroll-behavior: smooth; }
       <h2>Project list</h2>
       <span class="num" id="projTotal" style="color:var(--ink-2)"></span>
     </div>
-    <p class="lede">Timing follows the Board's roadmap. Because the Board hasn't priced individual projects, known items come from the Club's December 2025 long-range plan, while the clubhouse and kitchen split what's left of the $8.8M. Every row is editable.</p>
+    <p class="lede">Timing follows the Board's roadmap. Because the Board hasn't priced individual projects, known items come from the Club's 2025 long-range plan, while the clubhouse and kitchen split what's left of the $8.8M. Every row is editable.</p>
     <h3 class="edit-h">Change projects</h3>
     <p class="vs-note" style="margin-top:-4px">Edits here flow into Projects by Year.</p>
     <div class="table-wrap"><table class="projects" id="projTable"></table></div>
@@ -595,7 +617,7 @@ html { scroll-behavior: smooth; }
   </section>
 
   <footer>
-    Prepared independently by a member; not a Club publication. Inputs: the Board's capital plan presentation (Sept 2026) and assessment slide, the published Concert proposal summary, the Club's long-range capital plan (12/16/25) and the facilities photo review. The $3M threshold for ending dues was stated at the Board's capital plan meeting. Member counts are approximate, based on the certified vote of May 2026. Please check figures against Club records.
+    Prepared independently by a member; not a Club publication. Inputs: the Board's capital plan presentation (Sept 2026) and assessment slide, the published Concert proposal summary, the Club's long-range capital plan (2025) and the facilities photo review. The $3M threshold for ending dues was stated at the Board's capital plan meeting. Member counts are approximate, based on the certified vote of May 2026. Please check figures against Club records.
   </footer>
 </div>
 
@@ -1069,8 +1091,40 @@ html { scroll-behavior: smooth; }
     document.getElementById('roadmap').innerHTML = h;
   }
 
+  // Assessment needed for the fund to never go negative, keeping monthly dues as set
+  function fundRates(preset) {
+    const base = Object.assign({}, state, preset);
+    const at = f => Object.assign({}, base, { aFull: base.aFull * f, aSports: base.aSports * f, aSocial: base.aSocial * f });
+    const ok = f => run(at(f)).minBal >= 0;
+    if (ok(1)) return { f: 1, full: base.aFull, sports: base.aSports, social: base.aSocial, end: duesEnd(at(1)).year };
+    let lo = 1, hi = 1.5;
+    while (!ok(hi) && hi < 40) hi *= 1.5;
+    if (!ok(hi)) return null;
+    for (let i = 0; i < 40; i++) { const mid = (lo + hi) / 2; if (ok(mid)) hi = mid; else lo = mid; }
+    const up = v => Math.ceil(v / 250) * 250;
+    return { f: hi, full: up(base.aFull * hi), sports: up(base.aSports * hi), social: up(base.aSocial * hi), end: duesEnd(at(hi)).year };
+  }
+  let realisticRates = null;
+  function renderFund() {
+    const b = fundRates(PRESETS.board), m = fundRates(PRESETS.moderate);
+    realisticRates = m;
+    const r3 = x => `${fmt$(x.full)} Full, ${fmt$(x.sports)} Sports, ${fmt$(x.social)} Social`;
+    const dues = `${fmt$(+state.dFull || 0)} / ${fmt$(+state.dSports || 0)} / ${fmt$(+state.dSocial || 0)}`;
+    document.getElementById('fundText').innerHTML = !b || !m
+      ? 'With these settings, no assessment level keeps the fund above zero. Fewer projects or higher monthly dues would be needed.'
+      : `If members keep control, the up-front assessment has to carry the early work. To finish the roadmap without borrowing, it needs to be about <b>${r3(b)}</b> on the Board's own assumptions, roughly ${b.f < 1.05 ? 'what is proposed' : (Math.round(b.f * 10) / 10) + '× the proposal'}. Allowing for 4% yearly price increases and a 10% overrun cushion, it's closer to <b>${r3(m)}</b>. Monthly capital dues stay at ${dues}, and they'd end around Year ${m.end || '–'} instead of running for well over a decade.`;
+    document.getElementById('loadRealistic').hidden = !m;
+  }
+  document.getElementById('loadRealistic').addEventListener('click', () => {
+    if (!realisticRates) return;
+    Object.assign(state, PRESETS.moderate, { aFull: realisticRates.full, aSports: realisticRates.sports, aSocial: realisticRates.social });
+    writeInputs(); markPreset(); render();
+    document.getElementById('ceiling').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
   function render() {
     renderTotal();
+    renderFund();
     renderDuration();
     renderRatesState();
     renderPerMember();
