@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>River Hills Capital Plan Check</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,700;0,800;1,500&family=Montserrat:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a ledger. Verdict first, then assumptions beside the year-by-year cash picture, then the detail. */
+:root {
+  --bg: #f8f6f0; --surface: #ffffff; --sunk: #f0ede2; --gold: #8d7c3a; --olive: #2f3a23;
+  --ink: #252525; --ink-2: #4a4f44; --muted: #74756a; --line: #e2dfd3;
+  --accent: #2f3a23; --accent-ink: #ffffff;
+  --in: #1f7a52; --out: #b07a1a;
+  --bad: #b3261e; --bad-bg: #fbe9e7; --good: #1c6b47; --good-bg: #e3f1e9; --warn: #855600; --warn-bg: #fbf0d6;
+  --f-display: "Alegreya", Georgia, "Times New Roman", serif;
+  --f-body: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-num: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #14160f; --surface: #1b1e16; --sunk: #22261c; --gold: #c9b97a; --olive: #2f3a23;
+  --ink: #ece9de; --ink-2: #c3c2b4; --muted: #96968a; --line: #30342a;
+  --accent: #c9b97a; --accent-ink: #14160f;
+  --in: #3f9e72; --out: #bb8a26;
+  --bad: #ff8a80; --bad-bg: #3a1714; --good: #79d0a6; --good-bg: #12291f; --warn: #f0c060; --warn-bg: #2e2410;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #14160f; --surface: #1b1e16; --sunk: #22261c; --gold: #c9b97a; --olive: #2f3a23;
+  --ink: #ece9de; --ink-2: #c3c2b4; --muted: #96968a; --line: #30342a;
+  --accent: #c9b97a; --accent-ink: #14160f;
+  --in: #3f9e72; --out: #bb8a26;
+  --bad: #ff8a80; --bad-bg: #3a1714; --good: #79d0a6; --good-bg: #12291f; --warn: #f0c060; --warn-bg: #2e2410;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; line-height: 1.2; }
+h1 { font-size: clamp(2rem, 4.2vw, 3rem); font-weight: 800; line-height: 1.05; }
+h2 { font-size: 1.6rem; font-weight: 800; }
+h3 { font-size: 1rem; font-family: var(--f-body); font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+.eyebrow { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+.lede { color: var(--ink-2); }
+.num { font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+header { display: grid; gap: 10px; }
+
+.presets { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.presets span { color: var(--muted); font-size: .85rem; margin-right: 4px; }
+button.preset { font: inherit; font-size: .88rem; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+button.preset[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+button.preset:focus-visible, input:focus-visible, select:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.banner { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: var(--r); background: var(--warn-bg); color: var(--warn); font-size: .9rem; }
+.banner b { color: inherit; }
+.banner.is-bad { background: var(--bad-bg); color: var(--bad); }
+.banner.is-ok { background: var(--good-bg); color: var(--good); }
+
+.attr { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px 18px; display: grid; gap: 8px; }
+.attr-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; }
+.attr-head label { font-weight: 600; font-size: 1rem; }
+.attr-val .num { font-size: 1.5rem; font-weight: 500; color: var(--accent); }
+.attr-count { color: var(--ink-2); font-size: .88rem; }
+.attr input[type="range"] { width: 100%; accent-color: var(--accent); margin: 4px 0 0; }
+.attr-scale { position: relative; height: 2.4em; font-size: .74rem; color: var(--muted); font-family: var(--f-num); }
+.attr-scale span { position: absolute; top: 0; left: calc(9px + (100% - 18px) * var(--p)); transform: translateX(-50%); white-space: nowrap; text-align: center; line-height: 1.25; }
+.attr-scale span::before { content: ""; display: block; width: 1px; height: 5px; background: currentColor; margin: 0 auto 2px; opacity: .6; }
+.attr-scale span:first-child { transform: none; text-align: left; left: 0; }
+.attr-scale span:first-child::before { margin-left: 8px; }
+.attr-scale span:last-child { transform: none; left: auto; right: 0; text-align: right; }
+.attr-scale span:last-child::before { margin-right: 8px; margin-left: auto; }
+.attr-scale span.mark { color: var(--ink-2); font-weight: 500; }
+.attr-help { font-size: .85rem; color: var(--ink-2); }
+.obs { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; gap: 14px; }
+.obs-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.obs-basis { font-size: .78rem; color: var(--muted); }
+.obs ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.obs li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; }
+.obs li .mk { line-height: 0;  width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: .75rem; font-weight: 700; background: var(--bad-bg); color: var(--bad); margin-top: 1px; }
+.obs li .mk.warn { background: var(--warn-bg); color: var(--warn); }
+.obs li p { max-width: 80ch; color: var(--ink-2); }
+.obs li b { color: var(--ink); }
+.verdict { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+.tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 4px; align-content: start; min-width: 0; }
+.tile .label { font-size: .8rem; color: var(--muted); }
+.tile .value { font-family: var(--f-num); font-size: 1.55rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+.tile .sub { font-size: .82rem; color: var(--ink-2); }
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 600; padding: 2px 9px; border-radius: 999px; width: fit-content; }
+.pill.bad { background: var(--bad-bg); color: var(--bad); }
+.pill.good { background: var(--good-bg); color: var(--good); }
+.pill.warn { background: var(--warn-bg); color: var(--warn); }
+
+.main { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 900px) { .main { grid-template-columns: minmax(0, 1fr); } }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 18px; min-width: 0; }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+legend { font-weight: 700; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); padding: 0; margin-bottom: 4px; }
+.field { display: grid; grid-template-columns: minmax(0, 1fr) 112px; gap: 10px; align-items: center; }
+.field label { font-size: .88rem; color: var(--ink-2); }
+.field label small { display: block; color: var(--muted); font-size: .76rem; }
+.field input, .field select, td input, td select { font: inherit; font-family: var(--f-num); font-size: .9rem; width: 100%; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); text-align: right; }
+.field select { text-align: left; font-family: var(--f-body); }
+.rates { display: grid; grid-template-columns: minmax(0, 1fr) 96px 80px; gap: 6px 8px; align-items: center; }
+.rates .rh { font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: right; }
+.rates .rl { font-size: .88rem; color: var(--ink-2); }
+.rates input { font: inherit; font-family: var(--f-num); font-size: .9rem; width: 100%; padding: 6px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); text-align: right; }
+.rates input.changed { border-color: var(--out); box-shadow: inset 3px 0 0 var(--out); }
+.rates-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px; }
+.total-row { padding: 8px 10px; background: var(--sunk); border-radius: 4px; }
+.total-row span { font-size: .88rem; font-weight: 700; color: var(--ink); }
+.total-row output { font-size: 1.05rem; font-weight: 500; text-align: right; color: var(--ink); }
+.check { display: flex; gap: 10px; align-items: flex-start; font-size: .88rem; color: var(--ink-2); }
+.check input { margin-top: 3px; accent-color: var(--accent); }
+.check small { display: block; color: var(--muted); font-size: .76rem; }
+
+.charts { display: grid; gap: 24px; min-width: 0; }
+.chart-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 10px; min-width: 0; position: relative; }
+.chart-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; align-items: baseline; }
+.legend { display: flex; gap: 14px; font-size: .82rem; color: var(--ink-2); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
+svg.chart text { fill: var(--muted); font-family: var(--f-num); font-size: 11px; }
+svg.chart .grid { stroke: var(--line); stroke-width: 1; }
+svg.chart .zero { stroke: var(--ink-2); stroke-width: 1; }
+svg.chart .hit { fill: transparent; cursor: default; }
+svg.chart .hit:hover + g rect, svg.chart g.col:hover rect.mark { opacity: .85; }
+.tip { position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: .8rem; padding: 8px 10px; border-radius: 4px; line-height: 1.45; white-space: nowrap; z-index: 2; }
+.tip .num { font-size: .78rem; }
+
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+th, td { padding: 8px 10px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+thead th { font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; background: var(--sunk); }
+td.num, th.num { font-family: var(--f-num); font-variant-numeric: tabular-nums; }
+tr.total td { font-weight: 600; border-top: 2px solid var(--ink-2); }
+td.neg { color: var(--bad); font-weight: 600; }
+.projects td input[type="text"] { text-align: left; font-family: var(--f-body); min-width: 200px; }
+.projects td input[type="number"] { min-width: 110px; }
+.projects td select { min-width: 72px; text-align: left; }
+.projects td.src { color: var(--muted); font-size: .78rem; white-space: normal; min-width: 200px; text-align: left; }
+.btn { font: inherit; font-size: .86rem; padding: 7px 12px; border-radius: 4px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.btn.ghost { border: 0; color: var(--muted); padding: 4px 8px; }
+
+section { display: grid; gap: 12px; min-width: 0; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; align-items: start; }
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 10px; align-content: start; font-size: .9rem; min-width: 0; }
+.mini-wrap { overflow-x: auto; min-width: 0; }
+.note ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.note li { color: var(--ink-2); }
+.mini { width: 100%; font-size: .84rem; }
+.mini td, .mini th { padding: 6px 6px; white-space: normal; vertical-align: top; }
+.mini th { font-size: .68rem; letter-spacing: .04em; }
+.mini td.num, .mini th.num { white-space: nowrap; }
+.mini td:nth-child(2):not(.num), .mini th:nth-child(2):not(.num), .mini td:last-child:not(.num), .mini th:last-child:not(.num) { text-align: left; }
+.vs { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; gap: 14px; }
+.vs-head { display: grid; gap: 4px; }
+.vs-head p, .cta-sub { font-family: var(--f-display); font-style: italic; font-size: 1.1rem; color: var(--gold); }
+.vs-table th, .vs-table td { white-space: normal; text-align: left; vertical-align: top; line-height: 1.45; }
+.vs-table { min-width: 640px; }
+.vs-table tbody th { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); font-weight: 700; width: 150px; background: var(--surface); }
+.vs-table thead th { font-family: var(--f-display); font-size: 1.15rem; font-weight: 800; text-transform: none; letter-spacing: 0; color: var(--ink); }
+.vs-table thead th span { display: block; font-family: var(--f-body); font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.vs-table thead th.us { background: var(--olive); color: #ffffff; }
+.vs-table thead th.us span { color: #c9b97a; }
+.vs-table td { color: var(--ink-2); font-size: .88rem; }
+.vs-table td b { color: var(--ink); }
+.vs-table td.us { background: var(--sunk); }
+.sr { position: absolute; left: -9999px; }
+.dur { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 18px 20px; gap: 14px; }
+.dur-hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 12px; }
+.dur-hero .h { background: var(--sunk); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 2px; }
+.dur-hero .h .k { font-size: .74rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+.dur-hero .h .v { font-family: var(--f-display); font-weight: 800; font-size: 2.1rem; line-height: 1.05; color: var(--ink); }
+.dur-hero .h .s { font-size: .82rem; color: var(--ink-2); }
+.dur-hero .h.alert .v { color: var(--bad); }
+#durTable td.cur, #durTable th.cur { background: var(--sunk); }
+.vs-note { font-size: .78rem; color: var(--muted); }
+.cta { background: #2f3a23; color: #f3efe2; border-radius: var(--r); padding: 22px 22px 0; gap: 10px; overflow: hidden; border-top: 5px solid #c9b97a; }
+.cta-eye { color: #c9b97a; }
+.cta-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px 24px; align-items: center; padding-bottom: 14px; border-bottom: 1px solid rgba(201,185,122,.4); }
+.cta-bl { font-family: var(--f-display); font-weight: 800; font-size: 1.7rem; line-height: 1.1; color: #f3efe2; margin-top: 4px; }
+.four { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; }
+.four-n { font-family: var(--f-display); font-weight: 800; font-size: 5rem; line-height: .8; color: #c9b97a; }
+.four p { font-size: .9rem; color: #dcdccb; }
+.four b { color: #ffffff; }
+.cta-h { font-size: clamp(2.2rem, 5vw, 3.4rem); color: #ffffff; line-height: 1; margin-top: 6px; }
+.cta .cta-sub { color: #c9b97a; font-size: 1.4rem; }
+.cta-p { color: #dcdccb; font-size: .95rem; }
+.cta-do { margin: 8px -22px 0; background: #c9b97a; color: #2f3a23; padding: 12px 22px; display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
+.do-k { font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 800; }
+.do-i { font-size: .86rem; font-weight: 600; display: inline-flex; gap: 8px; align-items: center; }
+.do-i b { width: 22px; height: 22px; border-radius: 50%; background: #2f3a23; color: #c9b97a; display: grid; place-items: center; font-size: .75rem; }
+footer {
+ color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line); padding-top: 14px; }
+@media (prefers-reduced-motion: no-preference) { svg.chart rect.mark { transition: y .25s, height .25s; } }
+
+/* Infographic look */
+:root { --head: #2f3a23; --t-sage: #e9efed; --t-cream: #f8f3e9; --t-olive: #eef0e7; --t-khaki: #f3efe2; --card: #ffffff; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --head: #ece9de; --t-sage: #1d2320; --t-cream: #23221b; --t-olive: #1f241a; --t-khaki: #25241b; --card: #14160f; } }
+:root[data-theme="dark"] { --head: #ece9de; --t-sage: #1d2320; --t-cream: #23221b; --t-olive: #1f241a; --t-khaki: #25241b; --card: #14160f; }
+body { background: var(--card); }
+h1, h2 { color: var(--head); font-weight: 800; letter-spacing: -.01em; }
+.hero { justify-items: center; text-align: center; gap: 12px; }
+.hero h1 { font-size: clamp(2.2rem, 6vw, 3.8rem); line-height: 1; }
+.hero .lede { margin-inline: auto; }
+.eyebrow-lines { display: flex; align-items: center; justify-content: center; gap: 16px; width: 100%; }
+.eyebrow-lines::before, .eyebrow-lines::after { content: ""; flex: 0 1 140px; height: 2px; background: var(--gold); }
+.eyebrow-lines span { font-size: clamp(.85rem, 2.4vw, 1.3rem); letter-spacing: .22em; text-transform: uppercase; font-weight: 600; color: var(--gold); white-space: nowrap; }
+.tag { font-size: clamp(.62rem, 1.6vw, .82rem); letter-spacing: .26em; text-transform: uppercase; font-weight: 500; color: var(--head); }
+.presets { justify-content: center; }
+.attr, .tile, .obs, .panel, .chart-card, .note, .vs, .dur { border: 0; border-radius: 8px; }
+.attr { background: var(--t-sage); }
+.tile { background: var(--t-cream); }
+.obs { background: var(--t-olive); }
+.panel { background: var(--t-cream); }
+.chart-card { background: var(--t-sage); }
+.note { background: var(--t-khaki); }
+.vs { background: var(--t-cream); }
+.dur { background: var(--t-olive); }
+.dur-hero .h { background: var(--card); }
+.table-wrap { background: var(--card); border: 0; }
+.field input, .field select, td input, td select, .rates input { background: var(--card); }
+.chart-card h2 { font-size: 1.45rem; }
+.banner, .banner.is-bad, .banner.is-ok { background: #2f3a23; color: #dcdccb; border-left: 6px solid #c9b97a; padding: 16px 18px; font-size: .95rem; }
+.banner b { color: #ffffff; }
+.banner > span:first-child { color: #c9b97a; font-weight: 700; }
+.verdict { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.tile .value { font-family: var(--f-display); font-weight: 800; font-size: 2.2rem; line-height: 1.05; color: var(--head); }
+.attr-val .num { font-family: var(--f-display); font-weight: 800; font-size: 1.9rem; }
+.roadmap-wrap { overflow-x: auto; padding-bottom: 4px; }
+.roadmap { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); gap: 10px; min-width: 0; }
+.rm-col { background: var(--card); border-radius: 6px; overflow: hidden; display: grid; grid-template-rows: auto 1fr auto; min-height: 260px; box-shadow: 0 0 0 1px var(--line) inset; }
+.rm-head { background: var(--olive); color: #ffffff; font-family: var(--f-display); font-weight: 800; font-size: 1.25rem; text-align: center; padding: 10px 6px; }
+.rm-col.late .rm-head { background: #c9b97a; color: #2f3a23; }
+.rm-list { list-style: none; margin: 0; padding: 12px 12px 6px; display: grid; gap: 10px; align-content: start; }
+.rm-list li { display: grid; grid-template-columns: 9px 1fr; gap: 8px; align-items: start; font-size: .86rem; line-height: 1.3; color: var(--ink); }
+.rm-list li::before { content: ""; width: 9px; height: 9px; background: #c9b97a; margin-top: 4px; }
+.rm-list li span { display: block; font-family: var(--f-num); font-size: .76rem; color: var(--muted); margin-top: 2px; }
+.rm-foot { border-top: 1px solid var(--line); padding: 8px 12px 10px; display: grid; gap: 3px; font-size: .74rem; color: var(--muted); }
+.rm-foot b { font-family: var(--f-num); font-weight: 500; font-size: .86rem; color: var(--ink); display: block; }
+.rm-foot b.neg { color: var(--bad); }
+.edit-h { font-family: var(--f-display); font-weight: 800; font-size: 1.15rem; color: var(--head); margin-top: 6px; }
+.assume { background: var(--t-cream); border-radius: 8px; padding: 18px 20px; gap: 14px; }
+.assume-head { display: grid; gap: 4px; }
+.assume-head p { font-family: var(--f-display); font-style: italic; font-size: 1.05rem; color: var(--gold); }
+#inputs.panel { background: transparent; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; align-items: start; }
+#inputs fieldset { background: var(--card); border-radius: 6px; padding: 14px; }
+.main { grid-template-columns: minmax(0, 1fr) !important; }
+.charts { grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); }
+.rm-sec { background: var(--t-cream); border-radius: 8px; padding: 20px 20px 16px; gap: 12px; }
+.rm-sec h2 { font-size: clamp(1.6rem, 3.6vw, 2.3rem); }
+.rm-bar { width: 110px; height: 4px; background: #c9b97a; margin-top: 10px; }
+.rm-sub { color: var(--ink-2); font-size: .92rem; }
+.rm-list li.none { color: var(--muted); }
+.rm-list li.none::before { display: none; }
+@media (min-width: 900px) {
+  #inputs.panel { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-areas: "rates member costs" "seniors member costs" "pay member costs"; align-items: start; }
+  #inputs fieldset:nth-of-type(1) { grid-area: rates; }
+  #inputs fieldset:nth-of-type(2) { grid-area: member; }
+  #inputs fieldset:nth-of-type(3) { grid-area: seniors; }
+  #inputs fieldset:nth-of-type(4) { grid-area: pay; }
+  #inputs fieldset:nth-of-type(5) { grid-area: costs; }
+}
+.assume-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
+.reset-all { background: var(--olive); color: #ffffff; border-color: var(--olive); font-weight: 600; }
+.reset-all:hover { filter: brightness(1.15); }
+#inputs fieldset { display: grid; gap: 10px; align-content: start; }
+.fs-h { font-weight: 700; font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); padding: 0 0 8px; border-bottom: 1px solid var(--line); }
+#inputs fieldset { position: relative; }
+.attr-scale { height: 2.9em !important; }
+.obs ul { grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: 16px 28px; }
+.obs li .mk.ok { background: var(--good-bg); color: var(--good); }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.wrap > [id], .wrap [id="ceiling"] { scroll-margin-top: 20px; }
+.side { display: grid; gap: 2px; font-size: .82rem; }
+.side-k { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+.side a { color: var(--ink-2); text-decoration: none; padding: 6px 10px; border-radius: 4px; border-left: 3px solid transparent; }
+.side a:hover { background: var(--t-cream); color: var(--ink); }
+.side a.on { border-left-color: #c9b97a; background: var(--t-olive); color: var(--head); font-weight: 600; }
+@media (min-width: 1240px) {
+  .side { position: fixed; top: 28px; left: max(16px, calc((100% - 1180px) / 2 - 196px)); width: 180px; max-height: calc(100vh - 56px); overflow-y: auto; }
+  .wrap { margin-left: max(212px, calc((100% - 1180px) / 2)); margin-right: auto; }
+}
+@media (max-width: 1239px) {
+  .side { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; gap: 4px; overflow-x: auto; background: var(--card); border-bottom: 1px solid var(--line); padding: 8px 16px; white-space: nowrap; }
+  .side-k { display: none; }
+  .side a { border-left: 0; border-bottom: 3px solid transparent; border-radius: 0; padding: 6px 8px; }
+  .side a.on { border-bottom-color: #c9b97a; background: transparent; }
+  .wrap > [id], .wrap [id="ceiling"] { scroll-margin-top: 64px; }
+}
+.wrap { grid-template-columns: minmax(0, 1fr); }
+.wrap > * { min-width: 0; }
+@media (max-width: 600px) { .tag { letter-spacing: .14em; } .eyebrow-lines::before, .eyebrow-lines::after { flex-basis: 40px; } }
+#sources .cols { grid-template-columns: minmax(0, 1fr); align-items: stretch; }
+@media (min-width: 760px) { #sources .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.rm-list li.reserve em { display: block; font-style: normal; font-size: .74rem; font-weight: 600; margin-top: 3px; }
+.rm-list li.reserve em.short { color: var(--bad); }
+.rm-list li.reserve em.ok { color: var(--good); }
+.bn-ic { line-height: 0; padding-top: 3px; }
+.obs li .mk svg { display: block; }
+.disclaimer { max-width: 760px; margin: -6px auto 0; padding: 12px 16px; border: 1px solid var(--line); border-left: 4px solid #c9b97a; border-radius: 6px; background: var(--card); font-size: .86rem; line-height: 1.5; color: var(--ink-2); }
+.disclaimer b { color: var(--head); }
+/* Split header */
+.hero { text-align: left !important; justify-items: stretch !important; gap: 22px !important; border-bottom: 1px solid var(--line); padding-bottom: 26px; }
+.hero-text { display: grid; gap: 12px; justify-items: start; min-width: 0; }
+.hero .eyebrow-lines { justify-content: flex-start; width: auto; }
+.hero .eyebrow-lines::before { display: none; }
+.hero .eyebrow-lines::after { flex: 0 0 56px; }
+.hero h1 { font-size: clamp(2.3rem, 5vw, 3.6rem) !important; line-height: 1.02; text-align: left; max-width: 14ch; }
+.hero .tag { text-align: left; }
+.hero .lede { margin: 0 !important; text-align: left; max-width: 58ch; }
+.hero .presets { justify-content: flex-start; margin-top: 4px; }
+.hero .disclaimer { margin: 0; max-width: none; align-self: start; padding: 18px 20px; background: var(--t-cream); border: 0; border-left: 5px solid #c9b97a; border-radius: 8px; font-size: .88rem; }
+.hero .disclaimer::before { content: "Please note"; display: block; font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+@media (min-width: 900px) { .hero { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: end; column-gap: 40px; } }
+@media (max-width: 600px) { .hero .eyebrow-lines span { white-space: normal; } }
+.hero h1 { max-width: 18ch !important; }
+@media (min-width: 900px) { .hero { align-items: center !important; } }
+@media (max-width: 600px) { .hero .eyebrow-lines::after { display: none; } }
+.cta-top { grid-template-columns: 1fr !important; }
+.hero .eyebrow-lines { max-width: 100%; min-width: 0; }
+.hero .eyebrow-lines span { white-space: normal !important; font-size: clamp(.78rem, 1.25vw, 1rem); letter-spacing: .18em; line-height: 1.35; }
+.hero .eyebrow-lines::after { display: none !important; }
+.hero .eyebrow-lines::before { display: block !important; content: ""; flex: 0 0 28px; height: 2px; background: var(--gold); }
+</style>
+</head>
+<body>
+
+<nav class="side" aria-label="Sections">
+  <div class="side-k">Jump to</div>
+  <a href="#top">Start</a>
+  <a href="#assumptions">Settings</a>
+  <a href="#roadmap-sec">Projects by year</a>
+  <a href="#ceiling">The shortfall</a>
+  <a href="#charts">Cash charts</a>
+  <a href="#observations">What stands out</a>
+  <a href="#dues">Dues timeline</a>
+  <a href="#years">Annual ledger</a>
+  <a href="#compare">Side by side</a>
+  <a href="#revote">Next step</a>
+  <a href="#projects">Project list</a>
+  <a href="#sources">Method &amp; sources</a>
+</nav>
+<div class="wrap">
+  <header class="hero" id="top">
+    <div class="hero-text">
+    <div class="eyebrow-lines"><span>Capital improvement financial model</span></div>
+    <h1>Does the capital plan pay for itself?</h1>
+    <p class="lede">This page follows the Board's capital plan through each year: the up-front assessment and monthly capital dues coming in, $8.8M of projects going out, and the promise of no borrowing. It starts from an estimated 725 members, and every input below can be changed.</p>
+    <div class="presets" role="group" aria-label="Assumption sets">
+    <span>Scenario</span>
+    <button class="preset" data-preset="board" aria-pressed="true">Board case</button>
+    <button class="preset" data-preset="moderate" aria-pressed="false">Middle case</button>
+    <button class="preset" data-preset="stress" aria-pressed="false">Tough case</button>
+    </div>
+    </div>
+    <aside class="disclaimer" role="note" aria-label="Disclaimer">
+    <b>Independent analysis.</b> This is an independent look at the numbers: a financial model built by a member, based on communications sent through the Club. <b>This is not a River Hills–approved communication.</b> It was not produced, reviewed or endorsed by the Board or Club management. All figures are estimates; please check them against Club records before relying on them.
+    </aside>
+  </header>
+
+  <div class="attr" role="group" aria-labelledby="attrLabel">
+    <div class="attr-head">
+      <label id="attrLabel" for="a1Range">Share of members who leave instead of paying</label>
+      <span class="attr-val"><span class="num" id="a1Out">10%</span> <span id="a1Count" class="attr-count"></span></span>
+    </div>
+    <input id="a1Range" type="range" min="0" max="30" step="1" aria-describedby="a1Help">
+    <div class="attr-scale" aria-hidden="true"><span style="--p:0">0%</span><span class="mark" style="--p:.3333">10%<br>likely</span><span style="--p:.6667">20%</span><span style="--p:1">30%</span></div>
+    <p id="a1Help" class="attr-help">A 10% departure rate is the working estimate here, and it matches the Board's own stress test. Anyone who leaves pays no assessment and no capital dues.</p>
+  </div>
+
+  <section class="assume" id="assumptions" aria-labelledby="assumeTitle">
+    <div class="assume-head">
+      <div class="assume-top"><h2 id="assumeTitle">Settings</h2><button type="button" class="btn reset-all" id="resetAll">Restore the Board's numbers</button></div>
+      <p>Everything begins at the Board's figures and an estimated member count. Adjust any value to see the effect.</p>
+    </div>
+    <form class="panel" id="inputs" autocomplete="off">
+      <fieldset>
+        <legend class="sr">What each tier pays</legend>
+        <div class="fs-h" aria-hidden="true">What each tier pays</div>
+        <div class="rates" role="group" aria-label="Rates by membership tier">
+          <span></span><span class="rh">Up front</span><span class="rh">Per month</span>
+          <span class="rl">Full</span>
+          <input id="aFull" type="number" min="0" step="250" aria-label="Full one-time assessment">
+          <input id="dFull" type="number" min="0" step="5" aria-label="Full monthly capital dues">
+          <span class="rl">Sports</span>
+          <input id="aSports" type="number" min="0" step="250" aria-label="Sports one-time assessment">
+          <input id="dSports" type="number" min="0" step="5" aria-label="Sports monthly capital dues">
+          <span class="rl">Social</span>
+          <input id="aSocial" type="number" min="0" step="250" aria-label="Social one-time assessment">
+          <input id="dSocial" type="number" min="0" step="5" aria-label="Social monthly capital dues">
+        </div>
+        <div class="rates-foot"><span id="ratesState" class="pill good">Board's rates in use</span><button type="button" class="btn ghost" id="resetRates">Restore Board rates</button></div>
+      </fieldset>
+      <fieldset>
+        <legend class="sr">Members</legend>
+        <div class="fs-h" aria-hidden="true">Members</div>
+        <div class="field"><label for="nFull">Full<small>Junior Full counted here</small></label><input id="nFull" type="number" min="0" step="1"></div>
+        <div class="field"><label for="nSports">Sports</label><input id="nSports" type="number" min="0" step="1"></div>
+        <div class="field"><label for="nSocial">Social</label><input id="nSocial" type="number" min="0" step="1"></div>
+        <div class="field"><label for="nOther">Other<small>Category unclear</small></label><input id="nOther" type="number" min="0" step="1"></div>
+        <div class="field total-row"><span>Total (estimated)</span><output id="nTotal" class="num" for="nFull nSports nSocial nOther">725</output></div>
+        <div class="field"><label for="otherCat">Charge 'Other' at</label><select id="otherCat"><option value="Full">Full rate (generous)</option><option value="Sports">Sports</option><option value="Social">Social</option></select></div>
+        <div class="field"><label for="a1">Leave in Year 1 %<small>The Board's own test used 10%</small></label><input id="a1" type="number" min="0" max="100" step="0.5"></div>
+        <div class="field"><label for="aOn">Later departures %/yr</label><input id="aOn" type="number" min="0" max="100" step="0.5"></div>
+        <div class="field"><label for="grow">New joiners %/yr<small>Starting Year 2</small></label><input id="grow" type="number" min="0" max="100" step="0.5"></div>
+        <label class="check"><input id="newAssess" type="checkbox"><span>Charge new joiners the assessment<small>Not addressed in the plan</small></span></label>
+      </fieldset>
+      <fieldset>
+        <legend class="sr">Older members</legend>
+        <div class="fs-h" aria-hidden="true">Older members</div>
+        <div class="field"><label for="senior">Share aged 80+ %<small>Pay half the assessment. Share unknown; zero is generous to the Board</small></label><input id="senior" type="number" min="0" max="100" step="1"></div>
+        <div class="field"><label for="senRate">Monthly rate for 80+</label><select id="senRate"><option value="0.8">80%</option><option value="0.5">50%</option></select></div>
+        <div class="field"><label for="exempt">Assessment-exempt %<small>Age 75+, per bylaws note</small></label><input id="exempt" type="number" min="0" max="100" step="1"></div>
+      </fieldset>
+      <fieldset>
+        <legend class="sr">How people pay</legend>
+        <div class="fs-h" aria-hidden="true">How people pay</div>
+        <div class="field"><label for="split">Split payment %<small>Second half plus 8%, one year later</small></label><input id="split" type="number" min="0" max="100" step="1"></div>
+        <label class="check"><input id="credits" type="checkbox"><span>Include dining credits<small>$200 / $150 / $100 for paying up front</small></span></label>
+      </fieldset>
+      <fieldset>
+        <legend class="sr">Prices &amp; cash</legend>
+        <div class="fs-h" aria-hidden="true">Prices &amp; cash</div>
+        <div class="field"><label for="esc">Annual price increase %<small>Long-range plan assumes 3–5%</small></label><input id="esc" type="number" min="0" max="25" step="0.5"></div>
+        <div class="field"><label for="cont">Overrun allowance %<small>Fees, oversight, surprises</small></label><input id="cont" type="number" min="0" max="100" step="1"></div>
+        <div class="field"><label for="start">Reserve on day one $</label><input id="start" type="number" min="0" step="10000"></div>
+        <div class="field"><label for="earn">Interest on cash %</label><input id="earn" type="number" min="0" max="15" step="0.25"></div>
+        <div class="field"><label for="borrow">Loan rate if short %</label><input id="borrow" type="number" min="0" max="25" step="0.25"></div>
+        <label class="check"><input id="routine" type="checkbox"><span>Pay routine replacements from this fund too<small>About $727K a year in 2026–30 per the long-range plan: roofs, HVAC, kitchen, course equipment</small></span></label>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="rm-sec" id="roadmap-sec" aria-labelledby="rmTitle">
+    <div>
+      <h2 id="rmTitle">Projects by Year</h2>
+      <div class="rm-bar" aria-hidden="true"></div>
+    </div>
+    <p class="rm-sub">When each Board project is scheduled, what that year costs, and the fund balance afterward.</p>
+    <div class="roadmap-wrap"><div class="roadmap" id="roadmap" role="list" aria-label="Projects by year"></div></div>
+    <p class="vs-note">Costs shown in today's dollars. "Cost this year" adds any price increase and overrun allowance from Settings. "Balance after" is the fund after that year's work.</p>
+  </section>
+
+  <div class="banner" id="ceiling" role="note"></div>
+
+  <div class="verdict" id="verdict"></div>
+
+  <div class="main" id="charts">
+
+    <div class="charts">
+      <div class="chart-card" id="balCard">
+        <div class="chart-head">
+          <h2>Fund balance, end of each year</h2>
+          <div class="legend"><span><i style="background:var(--in)"></i>In the black</span><span><i style="background:var(--bad)"></i>In the red (borrowing)</span></div>
+        </div>
+        <svg class="chart" id="balChart" viewBox="0 0 680 280" role="img" aria-label="Year-end capital fund balance, Years 1 to 9"></svg>
+      </div>
+      <div class="chart-card" id="flowCard">
+        <div class="chart-head">
+          <h2>Coming in and going out</h2>
+          <div class="legend"><span><i style="background:var(--in)"></i>Money in</span><span><i style="background:var(--out)"></i>Money out</span></div>
+        </div>
+        <svg class="chart" id="flowChart" viewBox="0 0 680 280" role="img" aria-label="Money in and money out by year"></svg>
+      </div>
+    </div>
+  </div>
+
+  <section class="obs" id="observations" aria-labelledby="obsTitle">
+    <div class="obs-head">
+      <h2 id="obsTitle">Key observations</h2>
+      <span class="obs-basis" id="obsBasis"></span>
+    </div>
+    <ul id="obsList"></ul>
+  </section>
+
+  <section class="dur" id="dues" aria-labelledby="durTitle">
+    <div class="vs-head">
+      <h2 id="durTitle">When do the monthly dues end?</h2>
+      <p>At the Board's capital plan meeting, dues were described as continuing each month until the fund reaches $3M. The Board's own timeline is 7–9 years.</p>
+    </div>
+    <div class="dur-hero" id="durHero"></div>
+    <div class="table-wrap"><table id="durTable"></table></div>
+    <p class="vs-note">Carries the cash flow beyond Year 9 using only dues and interest, with no new projects. Routine replacements and the $1.8M already owed would delay the end further.</p>
+  </section>
+
+  <section id="years">
+    <h2>Annual ledger</h2>
+    <div class="table-wrap"><table id="yearTable"></table></div>
+  </section>
+
+  <section class="vs" id="compare" aria-labelledby="vsTitle">
+    <div class="vs-head">
+      <h2 id="vsTitle">Two paths, side by side</h2>
+      <p>Both would repair the Club. Only one puts the cost, the work and the risk on members.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="vs-table">
+        <thead><tr><th scope="col"><span class="sr">Question</span></th><th scope="col" class="them"><span>Path A</span>Self-funded capital plan</th><th scope="col" class="us"><span>Path B</span>Concert proposal</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Investment</th><td><b>$8.8M</b> of projects, assuming the funding arrives.</td><td class="us"><b>$10.7M in value:</b> $5M of near-term improvements, $2M toward greens, $1.8M of debt paid off and roughly $2M of member obligations taken on.</td></tr>
+          <tr><th scope="row">Paid by</th><td><b>Members:</b> presented as $15,800 per Full member over 9 years, nearer <b>$25,400</b> if dues run until a $3M reserve (about 17 years).</td><td class="us"><b>Concert</b></td></tr>
+          <tr><th scope="row">Current debt</th><td><b>Remains.</b> No payoff plan has been shown for the $1.8M.</td><td class="us"><b>Paid off</b> ($1.8M)</td></tr>
+          <tr><th scope="row">Greens</th><td><b>Unfunded;</b> the 2024 Master Plan prices them at $2.5M.</td><td class="us"><b>$2M set aside</b> for USGA-grade greens.</td></tr>
+          <tr><th scope="row">Monthly dues</th><td><b>Up roughly 5% already,</b> with capital dues added on top.</td><td class="us"><b>Frozen for a year,</b> then linked to CPI or similar local clubs.</td></tr>
+          <tr><th scope="row">Shortfall risk</th><td><b>Falls on members.</b> The fund dips as low as −$2.8M, pointing to a loan or another assessment.</td><td class="us"><b>Falls on Concert</b></td></tr>
+          <tr><th scope="row">Future use</th><td><b>Protected:</b> 25-year deed restrictions recorded in York County.</td><td class="us"><b>Protected</b> by the same deed restrictions.</td></tr>
+          <tr><th scope="row">Decision-making</th><td><b>Member votes,</b> including for projects above $250K.</td><td class="us"><b>Advisory role</b> for members; Concert makes the calls. This is the tradeoff.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="vs-note">Concert numbers come from the published proposal summary. The shortfall figure assumes the Board's settings and 10% leaving.</p>
+  </section>
+
+  <section class="cta" id="revote" aria-labelledby="ctaTitle">
+    <div class="cta-top">
+      <div>
+        <div class="eyebrow cta-eye">Where this leaves us</div>
+        <p class="cta-bl">Control is worth something. It also costs something.</p>
+      </div>
+    </div>
+    <h2 id="ctaTitle" class="cta-h">Vote YES on a second vote.</h2>
+    <p class="cta-sub">Bring Concert back to the table.</p>
+    <p class="cta-p">Nothing gets signed now. A second vote reopens talks with Concert, and members decide again knowing the full numbers.</p>
+    <div class="cta-do"><span class="do-k">How to help</span><span class="do-i"><b>1</b>Vote YES on a second vote</span><span class="do-i"><b>2</b>Talk with someone who voted No</span><span class="do-i"><b>3</b>Pass this along to members</span></div>
+  </section>
+
+  <section id="projects">
+    <div class="chart-head">
+      <h2>Project list</h2>
+      <span class="num" id="projTotal" style="color:var(--ink-2)"></span>
+    </div>
+    <p class="lede">Timing follows the Board's roadmap. Because the Board hasn't priced individual projects, known items come from the Club's December 2025 long-range plan, while the clubhouse and kitchen split what's left of the $8.8M. Every row is editable.</p>
+    <h3 class="edit-h">Change projects</h3>
+    <p class="vs-note" style="margin-top:-4px">Edits here flow into Projects by Year.</p>
+    <div class="table-wrap"><table class="projects" id="projTable"></table></div>
+    <div><button class="btn" type="button" id="addProj">Add project</button></div>
+  </section>
+
+  <section id="sources">
+    <h2>Method &amp; sources</h2>
+    <div class="cols">
+      <div class="note">
+        <h3>Per-member cost, 9 years</h3>
+        <div class="mini-wrap"><table class="mini" id="perMember"></table></div>
+        <p style="color:var(--muted);font-size:.8rem">Up-front assessment plus 108 monthly payments. At the Board's rates these equal its own totals of $15,800, $12,100 and $7,940. Try other rates in Settings.</p>
+      </div>
+      <div class="note">
+        <h3>Member estimate</h3>
+        <div class="mini-wrap"><table class="mini"><thead><tr><th>Tier</th><th class="num">Approx. count</th></tr></thead><tbody>
+          <tr><td>Full</td><td class="num">~295</td></tr>
+          <tr><td>Junior Full</td><td class="num">~41</td></tr>
+          <tr><td>Sports</td><td class="num">~160</td></tr>
+          <tr><td>Social</td><td class="num">~191</td></tr>
+          <tr><td>Other</td><td class="num">~38</td></tr>
+          <tr><td><b>Total</b></td><td class="num"><b>~725</b></td></tr>
+        </tbody></table></div>
+        <p style="color:var(--muted);font-size:.8rem">Approximations based on the certified vote of May 2026. Junior Full and "Other" members pay the Full rate by default, which works in the Board's favor.</p>
+      </div>
+      <div class="note">
+        <h3>Method</h3>
+        <ul>
+          <li>Members who leave in Year 1 do so before the assessment is due, so they contribute nothing.</li>
+          <li>Split payers pay half up front and the remainder plus 8% a year later.</li>
+          <li>Monthly dues are collected for 108 months, starting in Year 1, from whoever remains.</li>
+          <li>Project costs rise by the annual price increase after Year 1 (the Board's estimates are in current dollars), and the overrun allowance is applied on top.</li>
+          <li>After Year 9, dues continue until the fund holds $3M. "Last year of dues" carries the cash flow forward with dues and interest only.</li>
+          <li>The Club's current $1.8M debt is left out; its payments would add to everything here.</li>
+          <li>Any balance below zero means borrowing of some kind, which the plan rules out, so loan interest is applied to it.</li>
+        </ul>
+      </div>
+      <div class="note">
+        <h3>Questions for the Board</h3>
+        <ul>
+          <li><b>Where does the rest come from?</b> With 10% leaving, assessment and dues don't reach $8.8M, and the early spending would still require a loan. What else is the Board relying on (operating profits, joining or transfer fees, cash already in reserve), and how much from each?</li>
+          <li><b>How does the transfer provision work?</b> The Board says it covers the gap from 10% departures. Who pays, and how much?</li>
+          <li><b>What about the $1.8M already owed?</b> No payoff is described, and it isn't modeled here. Members would carry it on top.</li>
+          <li><b>Where is the engineering study?</b> The Board's deck cites "visible condition," with older estimates rolled forward.</li>
+          <li><b>Why are the greens left out?</b> The 2024 Master Plan prices them at $2.5M, yet only "reserves" are set toward them.</li>
+          <li><b>Who pays for routine replacements?</b> About $3.6M is listed for 2026–30. Does that come from operating money or from this capital fund?</li>
+          <li><b>What about the wish list?</b> Outdoor dining, banquet and parking expansion are listed at $0 in the long-range plan.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Prepared independently by a member; not a Club publication. Inputs: the Board's capital plan presentation (Sept 2026) and assessment slide, the published Concert proposal summary, the Club's long-range capital plan (12/16/25) and the facilities photo review. The $3M threshold for ending dues was stated at the Board's capital plan meeting. Member counts are approximate, based on the certified vote of May 2026. Please check figures against Club records.
+  </footer>
+</div>
+
+<div class="tip" id="tip" hidden></div>
+
+<script>
+(function () {
+  const YEARS = 9;
+  const CATS = [
+    { key: 'Full', A: 5000, D: 100, credit: 200 },
+    { key: 'Sports', A: 4000, D: 75, credit: 150 },
+    { key: 'Social', A: 2000, D: 55, credit: 100 },
+  ];
+  const ROUTINE = 727426;
+  const GREENS = 2500000;
+
+  const PRESETS = {
+    board:    { a1: 10, aOn: 0, grow: 0, esc: 0, cont: 0, earn: 0 },
+    moderate: { a1: 10, aOn: 3, grow: 3, esc: 4, cont: 10, earn: 3 },
+    stress:   { a1: 15, aOn: 4, grow: 1, esc: 6, cont: 20, earn: 3 },
+  };
+
+  const state = {
+    nFull: 336, nSports: 160, nSocial: 191, nOther: 38, otherCat: 'Full',
+    aFull: 5000, aSports: 4000, aSocial: 2000, dFull: 100, dSports: 75, dSocial: 55,
+    a1: 10, aOn: 0, grow: 0, newAssess: false,
+    senior: 0, senRate: 0.8, exempt: 0, split: 30, credits: true,
+    esc: 0, cont: 0, start: 0, earn: 0, borrow: 8, routine: false,
+    projects: [
+      { n: 'Cart Paths', y: 1, c: 2200000, s: 'LRP: 2024 Master Plan figure' },
+      { n: 'Court Concrete', y: 1, c: 195000, s: 'LRP: racquets exterior, 2026–30' },
+      { n: 'Parking Lot Paving', y: 1, c: 310000, s: 'LRP: parking' },
+      { n: 'Bunker Renovation', y: 2, c: 600000, s: 'LRP: 2024 Master Plan' },
+      { n: 'Pool Improvements — Phase 1', y: 2, c: 140000, s: 'LRP: pool deck' },
+      { n: 'Clubhouse Vision & Design', y: 2, c: 270000, s: 'Unpriced by Board; portion of remaining $8.8M' },
+      { n: 'Clubhouse Construction — Phase 1', y: 3, c: 1400000, s: 'Unpriced by Board; portion of remaining $8.8M' },
+      { n: 'Tee Renovations', y: 4, c: 700000, s: 'LRP: 2024 Master Plan' },
+      { n: 'Clubhouse Complete — Phase 2', y: 4, c: 1070000, s: 'Unpriced by Board; portion of remaining $8.8M' },
+      { n: 'Kitchen Renovation', y: 4, c: 600000, s: 'Unpriced by Board; portion of remaining $8.8M' },
+      { n: 'Pickleball & Court Fencing', y: 5, c: 600000, s: 'LRP: courts and fencing' },
+      { n: 'Golf Beautification & Pool', y: 5, c: 265000, s: 'LRP: landscaping $125K + pool $140K' },
+      { n: 'Drainage Improvements', y: '6-7', c: 450000, s: 'LRP: drainage, spread over Years 6–7' },
+    ],
+  };
+  const DEFAULTS = JSON.parse(JSON.stringify(state));
+
+  // A project's year is a number, or a range like "6-7" whose cost is split evenly.
+  function yrs(p) {
+    const m = String(p.y).match(/^(\d+)\s*-\s*(\d+)$/);
+    if (m) return [+m[1], +m[2]];
+    const n = +p.y || 1; return [n, n];
+  }
+
+  // ---------- model ----------
+  function run(p, k) {
+    k = k == null ? 1 : k;
+    const z = () => new Array(YEARS + 1).fill(0);
+    const r = { assess: z(), dues: z(), interest: z(), projects: z(), routine: z(), credits: z(), borrowCost: z(), inflow: z(), outflow: z(), bal: z(), members: z() };
+    const s = p.senior / 100, x = p.exempt / 100, q = p.split / 100;
+    const payShare = Math.max(0, 1 - s - x) + s * 0.5; // avg share of assessment per remaining member
+    const fullPayers = Math.max(0, 1 - x) * (1 - q);
+    const duesShare = (1 - s) + s * p.senRate;
+
+    CATS.forEach(c => {
+      const A = +p['a' + c.key] || 0, D = +p['d' + c.key] || 0;
+      const n0 = ((p['n' + c.key] || 0) + (p.otherCat === c.key ? (p.nOther || 0) : 0)) * k;
+      const m = z();
+      m[1] = n0 * (1 - p.a1 / 100);
+      r.assess[1] += m[1] * A * payShare * ((1 - q) + q * 0.5);
+      r.assess[2] += m[1] * A * payShare * q * 0.5 * 1.08;
+      if (p.credits) r.credits[1] += m[1] * fullPayers * c.credit;
+      for (let t = 2; t <= YEARS; t++) {
+        const joiners = m[t - 1] * p.grow / 100;
+        m[t] = m[t - 1] * (1 - p.aOn / 100) + joiners;
+        if (p.newAssess) r.assess[t] += joiners * A * payShare;
+      }
+      for (let t = 1; t <= YEARS; t++) {
+        r.dues[t] += m[t] * 12 * D * duesShare;
+        r.members[t] += m[t];
+      }
+    });
+
+    p.projects.forEach(pr => {
+      const [a, b] = yrs(pr), share = (+pr.c || 0) / (b - a + 1);
+      for (let y = a; y <= b; y++) if (y >= 1 && y <= YEARS) r.projects[y] += share * Math.pow(1 + p.esc / 100, y - 1) * (1 + p.cont / 100);
+    });
+    if (p.routine) for (let t = 1; t <= YEARS; t++) r.routine[t] = ROUTINE * Math.pow(1 + p.esc / 100, t - 1);
+
+    let bal = +p.start || 0;
+    r.bal[0] = bal;
+    for (let t = 1; t <= YEARS; t++) {
+      if (bal > 0) r.interest[t] = bal * p.earn / 100;
+      else if (bal < 0) r.borrowCost[t] = -bal * p.borrow / 100;
+      r.inflow[t] = r.assess[t] + r.dues[t] + r.interest[t];
+      r.outflow[t] = r.projects[t] + r.routine[t] + r.credits[t] + r.borrowCost[t];
+      bal += r.inflow[t] - r.outflow[t];
+      r.bal[t] = bal;
+    }
+    let minBal = Infinity, minYear = 0;
+    for (let t = 1; t <= YEARS; t++) if (r.bal[t] < minBal) { minBal = r.bal[t]; minYear = t; }
+    const sum = a => a.slice(1).reduce((u, v) => u + v, 0);
+    Object.assign(r, { minBal, minYear, endBal: r.bal[YEARS], totIn: sum(r.inflow), totProj: sum(r.projects) + sum(r.routine), totAssess: sum(r.assess), totDues: sum(r.dues), totBorrow: sum(r.borrowCost), firstNeg: r.bal.findIndex((b, i) => i > 0 && b < 0) });
+    return r;
+  }
+
+  function solveK(p, test) {
+    const total = p.nFull + p.nSports + p.nSocial + p.nOther;
+    if (total <= 0) return null;
+    let lo = 0, hi = 1;
+    while (!test(run(p, hi)) && hi < 64) hi *= 2;
+    if (!test(run(p, hi))) return null;
+    for (let i = 0; i < 40; i++) { const mid = (lo + hi) / 2; if (test(run(p, mid))) hi = mid; else lo = mid; }
+    return hi;
+  }
+
+  // Capital dues continue until the reserve reaches $3M. Extend the cash flow past Year 9 with dues only.
+  const RESERVE_TARGET = 3000000;
+  function duesEnd(p) {
+    const r = run(p);
+    let bal = r.bal[YEARS], dues = r.dues[YEARS], t = YEARS;
+    const change = 1 - p.aOn / 100 + p.grow / 100;
+    while (bal < RESERVE_TARGET && t < 50) {
+      t++;
+      dues *= change;
+      const interest = bal > 0 ? bal * p.earn / 100 : bal * p.borrow / 100;
+      const routine = p.routine ? ROUTINE * Math.pow(1 + p.esc / 100, t - 1) : 0;
+      bal += dues + interest - routine;
+      if (dues <= 0) break;
+    }
+    const done = bal >= RESERVE_TARGET;
+    const months = t * 12;
+    return { year: done ? t : null, full: (+p.aFull || 0) + months * (+p.dFull || 0), sports: (+p.aSports || 0) + months * (+p.dSports || 0), social: (+p.aSocial || 0) + months * (+p.dSocial || 0) };
+  }
+
+  // ---------- formatting ----------
+  const fmtM = v => {
+    const a = Math.abs(v), sign = v < 0 ? '−' : '';
+    if (a >= 1e6) return sign + '$' + (a / 1e6).toFixed(a >= 1e7 ? 1 : 2) + 'M';
+    if (a >= 1e3) return sign + '$' + Math.round(a / 1e3) + 'K';
+    return sign + '$' + Math.round(a);
+  };
+  const fmt$ = v => (v < 0 ? '−$' : '$') + Math.round(Math.abs(v)).toLocaleString('en-US');
+  const fmtN = v => Math.round(v).toLocaleString('en-US');
+
+  // ---------- inputs ----------
+  const form = document.getElementById('inputs');
+  const numIds = ['aFull', 'aSports', 'aSocial', 'dFull', 'dSports', 'dSocial', 'nFull', 'nSports', 'nSocial', 'nOther', 'a1', 'aOn', 'grow', 'senior', 'exempt', 'split', 'esc', 'cont', 'start', 'earn', 'borrow'];
+  const boolIds = ['newAssess', 'credits', 'routine'];
+  function writeInputs() {
+    numIds.forEach(id => { document.getElementById(id).value = state[id]; });
+    boolIds.forEach(id => { document.getElementById(id).checked = state[id]; });
+    document.getElementById('senRate').value = String(state.senRate);
+    document.getElementById('otherCat').value = state.otherCat;
+    document.getElementById('a1Range').value = Math.min(30, state.a1);
+  }
+  form.addEventListener('input', e => {
+    const id = e.target.id;
+    if (numIds.includes(id)) state[id] = Math.max(0, parseFloat(e.target.value) || 0);
+    else if (boolIds.includes(id)) state[id] = e.target.checked;
+    else if (id === 'senRate') state.senRate = parseFloat(e.target.value);
+    else if (id === 'otherCat') state.otherCat = e.target.value;
+    if (['a1', 'aOn', 'grow', 'esc', 'cont', 'earn'].includes(id)) markPreset();
+    render();
+  });
+  form.addEventListener('submit', e => e.preventDefault());
+  const BOARD_RATES = { aFull: 5000, aSports: 4000, aSocial: 2000, dFull: 100, dSports: 75, dSocial: 55 };
+  document.getElementById('resetRates').addEventListener('click', () => { Object.assign(state, BOARD_RATES); writeInputs(); render(); });
+  function ratesChanged() { return Object.keys(BOARD_RATES).some(k => state[k] !== BOARD_RATES[k]); }
+  function renderRatesState() {
+    Object.keys(BOARD_RATES).forEach(k => document.getElementById(k).classList.toggle('changed', state[k] !== BOARD_RATES[k]));
+    const el = document.getElementById('ratesState'), ch = ratesChanged();
+    el.className = 'pill ' + (ch ? 'warn' : 'good');
+    el.textContent = ch ? 'Custom rates' : "Board's rates in use";
+    document.getElementById('resetRates').hidden = !ch;
+    document.getElementById('obsBasis').textContent = (ch ? 'Custom rates' : "Board rates") + ' and settings · 10% leaving · estimated members';
+  }
+  document.getElementById('a1Range').addEventListener('input', e => {
+    state.a1 = parseFloat(e.target.value) || 0;
+    document.getElementById('a1').value = state.a1;
+    markPreset(); render();
+  });
+  form.addEventListener('input', e => { if (e.target.id === 'a1') document.getElementById('a1Range').value = Math.min(30, state.a1); });
+
+  document.querySelectorAll('button.preset').forEach(b => b.addEventListener('click', () => {
+    Object.assign(state, PRESETS[b.dataset.preset]);
+    writeInputs(); markPreset(); render();
+  }));
+  function markPreset() {
+    document.querySelectorAll('button.preset').forEach(b => {
+      const pr = PRESETS[b.dataset.preset];
+      b.setAttribute('aria-pressed', String(Object.keys(pr).every(k => state[k] === pr[k])));
+    });
+  }
+
+  // ---------- projects table ----------
+  const projTable = document.getElementById('projTable');
+  function renderProjects() {
+    const yrOpts = y => Array.from({ length: YEARS }, (_, i) => `<option value="${i + 1}"${String(y) === String(i + 1) ? ' selected' : ''}>Year ${i + 1}</option>`).join('') + `<option value="6-7"${String(y) === '6-7' ? ' selected' : ''}>Years 6–7</option>`;
+    projTable.innerHTML = '<thead><tr><th>Project</th><th>Year</th><th class="num">Cost (current $)</th><th style="text-align:left">Source</th><th><span class="sr" style="position:absolute;left:-9999px">Remove</span></th></tr></thead><tbody>' +
+      state.projects.map((p, i) => `<tr>
+        <td><input type="text" id="pn${i}" data-i="${i}" data-f="n" value="${p.n.replace(/"/g, '&quot;')}" aria-label="Project name"></td>
+        <td><select id="py${i}" data-i="${i}" data-f="y" aria-label="Year for ${p.n.replace(/"/g, '&quot;')}">${yrOpts(p.y)}</select></td>
+        <td class="num"><input type="number" id="pc${i}" data-i="${i}" data-f="c" min="0" step="10000" value="${p.c}" aria-label="Cost for ${p.n.replace(/"/g, '&quot;')}"></td>
+        <td class="src">${p.s || 'Your addition'}</td>
+        <td><button type="button" class="btn ghost" data-del="${i}" aria-label="Remove ${p.n.replace(/"/g, '&quot;')}">Remove</button></td>
+      </tr>`).join('') + '</tbody>';
+  }
+  projTable.addEventListener('input', e => {
+    const i = e.target.dataset.i, f = e.target.dataset.f;
+    if (i == null) return;
+    state.projects[i][f] = f === 'n' ? e.target.value : f === 'y' ? (/-/.test(e.target.value) ? e.target.value : +e.target.value) : Math.max(0, parseFloat(e.target.value) || 0);
+    render();
+  });
+  projTable.addEventListener('click', e => {
+    const d = e.target.dataset.del;
+    if (d == null) return;
+    state.projects.splice(+d, 1);
+    renderProjects(); render();
+  });
+  document.getElementById('addProj').addEventListener('click', () => {
+    state.projects.push({ n: 'Project name', y: 1, c: 100000, s: '' });
+    renderProjects(); render();
+  });
+
+  // ---------- charts ----------
+  const tip = document.getElementById('tip');
+  function showTip(card, evt, html) {
+    tip.innerHTML = html; tip.hidden = false;
+    const r = card.getBoundingClientRect();
+    card.appendChild(tip);
+    let x = evt.clientX - r.left + 12, y = evt.clientY - r.top + 12;
+    const w = tip.offsetWidth;
+    if (x + w > r.width - 8) x = evt.clientX - r.left - w - 12;
+    tip.style.left = x + 'px'; tip.style.top = y + 'px';
+  }
+  function hideTip() { tip.hidden = true; }
+
+  function niceTicks(min, max, count) {
+    const span = max - min || 1;
+    const step0 = span / count, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+    const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => span / s <= count) || 10 * mag;
+    const lo = Math.floor(min / step) * step, hi = Math.ceil(max / step) * step;
+    const ticks = []; for (let v = lo; v <= hi + step / 2; v += step) ticks.push(Math.abs(v) < step / 1e6 ? 0 : v);
+    return { lo, hi, ticks };
+  }
+
+  const W = 680, H = 280, PL = 64, PR = 12, PT = 16, PB = 30;
+  function frame(svg, lo, hi, ticks) {
+    const y = v => PT + (hi - v) / (hi - lo) * (H - PT - PB);
+    let out = '';
+    ticks.forEach(t => {
+      out += `<line class="${t === 0 ? 'zero' : 'grid'}" x1="${PL}" x2="${W - PR}" y1="${y(t)}" y2="${y(t)}"/>`;
+      out += `<text x="${PL - 8}" y="${y(t) + 4}" text-anchor="end">${fmtM(t)}</text>`;
+    });
+    const bw = (W - PL - PR) / YEARS;
+    for (let t = 1; t <= YEARS; t++) out += `<text x="${PL + bw * (t - 0.5)}" y="${H - 8}" text-anchor="middle">Yr ${t}</text>`;
+    return { out, y, bw };
+  }
+  function barPath(x, y0, y1, w) {
+    // rounded data-end (4px), flat at the baseline
+    const top = Math.min(y0, y1), bot = Math.max(y0, y1), h = bot - top;
+    const r = Math.min(4, h, w / 2), up = y1 < y0;
+    if (h < 0.5) return '';
+    return up
+      ? `M${x},${bot}V${top + r}Q${x},${top} ${x + r},${top}H${x + w - r}Q${x + w},${top} ${x + w},${top + r}V${bot}Z`
+      : `M${x},${top}V${bot - r}Q${x},${bot} ${x + r},${bot}H${x + w - r}Q${x + w},${bot} ${x + w},${bot - r}V${top}Z`;
+  }
+
+  function renderBal(r) {
+    const svg = document.getElementById('balChart'), card = document.getElementById('balCard');
+    const vals = r.bal.slice(1);
+    const { lo, hi, ticks } = niceTicks(Math.min(0, ...vals), Math.max(0, ...vals), 5);
+    const f = frame(svg, lo, hi, ticks);
+    let out = f.out;
+    const w = Math.min(44, f.bw * 0.56);
+    vals.forEach((v, i) => {
+      const x = PL + f.bw * i + (f.bw - w) / 2;
+      const col = v < 0 ? 'var(--bad)' : 'var(--in)';
+      out += `<path class="mark" d="${barPath(x, f.y(0), f.y(v), w)}" fill="${col}"/>`;
+      if (i + 1 === r.minYear && v < 0) out += `<text x="${x + w / 2}" y="${f.y(v) + 14}" text-anchor="middle" style="fill:var(--bad);font-weight:500">${fmtM(v)}</text>`;
+      if (i + 1 === YEARS) out += `<text x="${x + w / 2}" y="${v >= 0 ? f.y(v) - 6 : f.y(v) + 14}" text-anchor="middle" style="fill:var(--ink);font-weight:500">${fmtM(v)}</text>`;
+      out += `<rect class="hit" data-t="${i + 1}" x="${PL + f.bw * i}" y="${PT}" width="${f.bw}" height="${H - PT - PB}"/>`;
+    });
+    svg.innerHTML = out;
+    svg.querySelectorAll('.hit').forEach(h => {
+      h.addEventListener('mousemove', e => {
+        const t = +h.dataset.t;
+        showTip(card, e, `<b>Year ${t}</b><br>Balance <span class="num">${fmt$(r.bal[t])}</span>${r.bal[t] < 0 ? '<br>Below zero: loan needed' : ''}`);
+      });
+      h.addEventListener('mouseleave', hideTip);
+    });
+  }
+
+  function renderFlow(r) {
+    const svg = document.getElementById('flowChart'), card = document.getElementById('flowCard');
+    const max = Math.max(...r.inflow.slice(1), ...r.outflow.slice(1), 1);
+    const { lo, hi, ticks } = niceTicks(0, max, 5);
+    const f = frame(svg, lo, hi, ticks);
+    let out = f.out;
+    const w = Math.min(22, f.bw * 0.3);
+    for (let t = 1; t <= YEARS; t++) {
+      const cx = PL + f.bw * (t - 0.5);
+      out += `<path class="mark" d="${barPath(cx - w - 1, f.y(0), f.y(r.inflow[t]), w)}" fill="var(--in)"/>`;
+      out += `<path class="mark" d="${barPath(cx + 1, f.y(0), f.y(r.outflow[t]), w)}" fill="var(--out)"/>`;
+      out += `<rect class="hit" data-t="${t}" x="${PL + f.bw * (t - 1)}" y="${PT}" width="${f.bw}" height="${H - PT - PB}"/>`;
+    }
+    svg.innerHTML = out;
+    svg.querySelectorAll('.hit').forEach(h => {
+      h.addEventListener('mousemove', e => {
+        const t = +h.dataset.t;
+        showTip(card, e, `<b>Year ${t}</b><br>In <span class="num">${fmt$(r.inflow[t])}</span><br>Out <span class="num">${fmt$(r.outflow[t])}</span><br>Net <span class="num">${fmt$(r.inflow[t] - r.outflow[t])}</span>`);
+      });
+      h.addEventListener('mouseleave', hideTip);
+    });
+  }
+
+  // ---------- verdict + tables ----------
+  function renderVerdict(r) {
+    const total = state.nFull + state.nSports + state.nSocial + state.nOther;
+    const kNever = solveK(state, x => x.minBal >= 0);
+    const kEnd = solveK(state, x => x.endBal >= 0);
+    const needNever = kNever == null ? null : Math.ceil(kNever * total);
+    const needEnd = kEnd == null ? null : Math.ceil(kEnd * total);
+    const borrows = r.minBal < 0;
+    const tiles = [
+      { label: 'Collected in 9 years', value: fmtM(r.totIn), sub: `${fmtM(r.totAssess)} up front · ${fmtM(r.totDues)} monthly` },
+      { label: 'Paid out in 9 years', value: fmtM(r.totProj + r.totBorrow + r.credits[1]), sub: `${fmtM(r.totProj)} of projects${state.routine ? ' + routine' : ''}, incl. price increases & overruns` },
+      { label: 'Low point', value: fmtM(r.minBal), sub: borrows ? `Below zero from Year ${r.firstNeg}, so a loan would be needed.` : `Year ${r.minYear}; stays above zero.`, pill: borrows ? ['bad', 'Borrowing required'] : ['good', 'Stays positive'] },
+      { label: 'Balance after Year 9', value: fmtM(r.endBal), sub: r.endBal >= GREENS ? 'Enough for the $2.5M greens' : `Greens renovation alone: $2.5M per the 2024 Master Plan`, pill: r.endBal < 0 ? ['bad', 'Below zero'] : r.endBal < GREENS ? ['warn', 'Short of greens cost'] : ['good', 'Covers greens'] },
+      (() => { const d = duesEnd(state); return { label: 'Last year of dues', value: d.year ? 'Year ' + d.year : 'Past Year 50', sub: d.year ? `Dues end once the fund holds $3M. A Full member pays about ${fmtM(d.full)} in total, versus ${fmtM((+state.aFull || 0) + 108 * (+state.dFull || 0))} as presented.` : 'The fund never reaches $3M with these settings.', pill: d.year && d.year <= 9 ? ['good', 'On schedule'] : ['bad', 'Beyond 7–9 years'] }; })(),
+      { label: 'Members required', value: needNever == null ? 'n/a' : fmtN(needNever), sub: needNever == null ? 'Enter member counts' : `to avoid any loan (${fmtN(total)} entered); ${fmtN(needEnd)} to finish Year 9 even, with a loan along the way.`, pill: needNever == null ? null : (needNever <= total ? ['good', 'Membership suffices'] : ['bad', `${fmtN(needNever - total)} too few`]) },
+    ];
+    document.getElementById('verdict').innerHTML = tiles.map(t => `<div class="tile">
+      <span class="label">${t.label}</span>
+      <span class="value">${t.value}</span>
+      ${t.pill ? `<span class="pill ${t.pill[0]}">${t.pill[1]}</span>` : ''}
+      <span class="sub">${t.sub}</span></div>`).join('');
+  }
+
+  function renderYearTable(r) {
+    const rows = [
+      ['Paying members', r.members, v => fmtN(v)],
+      ['Assessment in', r.assess, fmt$],
+      ['Monthly dues in', r.dues, fmt$],
+      ['Interest', r.interest, fmt$],
+      ['Projects (incl. increases & overruns)', r.projects, v => fmt$(-v)],
+    ];
+    if (state.routine) rows.push(['Routine replacement spending', r.routine, v => fmt$(-v)]);
+    if (state.credits) rows.push(['Dining credits given', r.credits, v => fmt$(-v)]);
+    if (r.totBorrow > 0) rows.push(['Loan interest', r.borrowCost, v => fmt$(-v)]);
+    let h = '<thead><tr><th>Item</th>' + Array.from({ length: YEARS }, (_, i) => `<th class="num">Yr ${i + 1}</th>`).join('') + '</tr></thead><tbody>';
+    rows.forEach(([n, a, f]) => {
+      h += `<tr><td>${n}</td>` + a.slice(1).map(v => `<td class="num">${v === 0 ? '–' : f(v)}</td>`).join('') + '</tr>';
+    });
+    h += '<tr class="total"><td>Closing balance</td>' + r.bal.slice(1).map(v => `<td class="num${v < 0 ? ' neg' : ''}">${fmt$(v)}</td>`).join('') + '</tr></tbody>';
+    document.getElementById('yearTable').innerHTML = h;
+  }
+
+  function renderPerMember() {
+    let h = '<thead><tr><th>Tier</th><th class="num">Up front</th><th class="num">Monthly</th><th class="num">108 months</th><th class="num">Total</th></tr></thead><tbody>';
+    CATS.forEach(c => { const A = +state['a' + c.key] || 0, D = +state['d' + c.key] || 0; h += `<tr><td>${c.key}</td><td class="num">${fmt$(A)}</td><td class="num">${fmt$(D)}/mo</td><td class="num">${fmt$(D * 108)}</td><td class="num">${fmt$(A + D * 108)}</td></tr>`; });
+    document.getElementById('perMember').innerHTML = h + '</tbody>';
+  }
+
+  function renderCeiling() {
+    const max = CATS.reduce((u, c) => u + ((state['n' + c.key] || 0) + (state.otherCat === c.key ? state.nOther : 0)) * ((+state['a' + c.key] || 0) + (+state['d' + c.key] || 0) * 108), 0);
+    const proj = state.projects.reduce((u, p) => u + (+p.c || 0), 0);
+    const n = state.nFull + state.nSports + state.nSocial + state.nOther;
+    const short = max < proj;
+    const el = document.getElementById('ceiling');
+    el.className = 'banner ' + (short ? 'is-bad' : 'is-ok');
+    el.innerHTML = `<span aria-hidden="true" class="bn-ic">${OBS_ICON[short ? 'bad' : 'ok']}</span><span><b>Best possible case:</b> if every one of ${fmtN(n)} members stays and pays in full, with no senior discounts or split payments, the plan brings in <b class="num">${fmtM(max)}</b> for <b class="num">${fmtM(proj)}</b> of work priced today. ${short ? 'A gap remains even before price increases, overruns or a reserve.' : `The ${Math.round((max / proj - 1) * 100)}% (${fmtM(max - proj)}) to spare has to absorb departures, inflation, overruns and a reserve, while most of the spending lands well before nine years of dues are collected.`}</span>`;
+  }
+
+  function renderTotal() {
+    document.getElementById('nTotal').textContent = fmtN(state.nFull + state.nSports + state.nSocial + state.nOther);
+  }
+
+  function renderAttr() {
+    const n = state.nFull + state.nSports + state.nSocial + state.nOther;
+    document.getElementById('a1Out').textContent = state.a1 + '%';
+    document.getElementById('a1Count').textContent = `≈ ${fmtN(n * state.a1 / 100)} of ${fmtN(n)} members walk away`;
+  }
+
+  const OBS_ICON = {
+    bad: '<svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4.5l4.5 4.5 2.5-2.5L14 11.5"/><path d="M10 11.5h4v-4"/></svg>',
+    warn: '<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.5V2"/><path d="M4 2.5h8l-2 3 2 3H4"/></svg>',
+    ok: '<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg>',
+  };
+
+  function renderObs() {
+    const n = state.nFull + state.nSports + state.nSocial + state.nOther;
+    const projToday = state.projects.reduce((u, p) => u + (+p.c || 0), 0);
+    const ceiling = CATS.reduce((u, c) => u + ((state['n' + c.key] || 0) + (state.otherCat === c.key ? state.nOther : 0)) * ((+state['a' + c.key] || 0) + (+state['d' + c.key] || 0) * 108), 0);
+    const base = Object.assign({}, state, PRESETS.board, { a1: 10 });
+    const b = run(base);
+    const m = run(Object.assign({}, base, { esc: 4, cont: 10 }));
+    const early = state.projects.filter(p => yrs(p)[1] <= 4).reduce((u, p) => u + (+p.c || 0), 0);
+    const kNever = solveK(base, x => x.minBal >= 0);
+    const need = kNever == null ? null : Math.ceil(kNever * n);
+    const raised10 = b.totAssess + b.totDues;
+    const d = duesEnd(base);
+    const pct = v => Math.round(v * 100) + '%';
+    const items = [
+      ceiling < projToday
+        ? ['bad', `<b>Not enough, even with perfect payment.</b> If none of the ${fmtN(n)} members left and everyone paid in full, the plan would collect ${fmtM(ceiling)} against a ${fmtM(projToday)} project bill.`]
+        : ['bad', `<b>A ${pct(ceiling / projToday - 1)} margin at the very best.</b> If none of the ${fmtN(n)} members left and everyone paid in full, ${fmtM(ceiling)} would come in against a ${fmtM(projToday)} project bill. Departures, higher prices, overruns and any reserve all have to fit inside that sliver.`],
+      raised10 < projToday
+        ? ['bad', `<b>A 10% exit opens a ${fmtM(projToday - raised10)} hole.</b> Once one in ten members walks away, the assessment and dues total about ${fmtM(raised10)}, short of the project bill before a single price increase.`]
+        : ['warn', `<b>A 10% exit leaves just ${fmtM(raised10 - projToday)} spare.</b> Once one in ten members walks away, the assessment and dues total about ${fmtM(raised10)}, with nothing set aside for higher prices, overruns or a reserve.`],
+      b.minBal < 0
+        ? ['bad', `<b>The bills arrive first; the dues arrive later.</b> ${fmtM(early)} of work is due in Years 1–4, yet monthly dues are spread across nine years. The fund turns negative in Year ${b.firstNeg} and sinks to about ${fmtM(b.minBal)} in Year ${b.minYear}, which means borrowing despite the no-debt pledge.`]
+        : ['ok', `<b>The fund never dips below zero here.</b> Its lowest point is ${fmtM(b.minBal)}, in Year ${b.minYear}.`],
+      ['warn', `<b>Prices frozen at today's level.</b> There's been no engineering study, and older quotes were only brought up to current costs. The Club's own long-range plan builds in 3–5% inflation a year and calls some numbers likely low. ${m.endBal < 0 ? `With 4% yearly increases and a 10% overrun allowance, the Year 9 deficit climbs to around ${fmtM(-m.endBal)}.` : `With 4% yearly increases and a 10% overrun allowance, just ${fmtM(m.endBal)} is left after Year 9.`}`],
+      d.year && d.year <= 9
+        ? ['ok', `<b>Dues finish on time.</b> With these settings the fund hits $3M in Year ${d.year}.`]
+        : ['bad', `<b>About ${d.year ? d.year : '50+'} years of dues, not 7–9.</b> Monthly dues stop only when the fund holds $3M. On the Board's numbers that's ${d.year ? 'Year ' + d.year : 'beyond Year 50'}, and a Full member's total reaches roughly ${fmtM(d.full)}, compared with $15,800 as presented.`],
+      b.endBal < 2500000
+        ? ['warn', `<b>Year 9 ends ${b.endBal < 0 ? 'in deficit' : 'with little in hand'}.</b> The fund closes at ${fmtM(b.endBal)}, and the $2.5M greens renovation from the 2024 Master Plan still isn't scheduled.`]
+        : ['ok', `<b>Money left for the greens.</b> The fund closes Year 9 at ${fmtM(b.endBal)}, above the $2.5M greens estimate.`],
+      need != null && need > n
+        ? ['bad', `<b>${fmtN(need)} members would be needed, not ${fmtN(n)}.</b> That's ${pct(need / n - 1)} more people paying these rates to avoid any loan. Unless the Board has funding it hasn't disclosed, the choices narrow to borrowing, a second assessment or a shorter project list.`]
+        : ['ok', `<b>Enough members on these settings.</b> Avoiding a loan takes about ${need == null ? 'n/a' : fmtN(need)} members, and ${fmtN(n)} are entered.`],
+    ];
+    document.getElementById('obsList').innerHTML = items.map(([k, t]) => `<li><span class="mk ${k}" aria-hidden="true">${OBS_ICON[k] || OBS_ICON.bad}</span><p>${t}</p></li>`).join('');
+  }
+
+  function renderDuration() {
+    const billed = 108;
+    const sets = [
+      ['Board case', Object.assign({}, state, PRESETS.board)],
+      ['Middle case', Object.assign({}, state, PRESETS.moderate)],
+      ['Tough case', Object.assign({}, state, PRESETS.stress)],
+      ['Your settings', state],
+    ];
+    const rows = sets.map(([name, p]) => [name, p, duesEnd(p)]);
+    const cur = rows[3][2], brd = rows[0][2];
+    const yrs = d => d.year ? d.year + ' years' : '50+ years';
+    const mos = d => d.year ? fmtN(d.year * 12) : '600+';
+    document.getElementById('durHero').innerHTML = `
+      <div class="h"><span class="k">As presented</span><span class="v">7–9 years</span><span class="s">${billed} payments</span></div>
+      <div class="h alert"><span class="k">Board case</span><span class="v">${yrs(brd)}</span><span class="s">${mos(brd)} payments · about ${fmtM(brd.full)} per Full member</span></div>
+      <div class="h alert"><span class="k">Your settings</span><span class="v">${yrs(cur)}</span><span class="s">${mos(cur)} payments · about ${fmtM(cur.full)} per Full member</span></div>`;
+    let h = '<thead><tr><th>Scenario</th><th class="num">Final year</th><th class="num">Payments</th><th class="num">Full member</th><th class="num">Sports member</th><th class="num">Social member</th></tr></thead><tbody>';
+    h += `<tr><td>As presented</td><td class="num">Year 9</td><td class="num">${billed}</td><td class="num">${fmt$((+state.aFull||0) + billed * (+state.dFull||0))}</td><td class="num">${fmt$((+state.aSports||0) + billed * (+state.dSports||0))}</td><td class="num">${fmt$((+state.aSocial||0) + billed * (+state.dSocial||0))}</td></tr>`;
+    rows.forEach(([name, , d], i) => {
+      const c = i === 3 ? ' cur' : '';
+      h += `<tr><td class="${c.trim()}">${name}</td><td class="num${c}">${d.year ? 'Year ' + d.year : 'Past Year 50'}</td><td class="num${c}">${mos(d)}</td><td class="num${c}">${d.year ? fmt$(d.full) : '–'}</td><td class="num${c}">${d.year ? fmt$(d.sports) : '–'}</td><td class="num${c}">${d.year ? fmt$(d.social) : '–'}</td></tr>`;
+    });
+    document.getElementById('durTable').innerHTML = h + '</tbody>';
+  }
+
+  function renderRoadmap(r) {
+    const last = Math.max(1, ...state.projects.map(p => yrs(p)[1]));
+    const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const cols = [];
+    for (let y = 1; y <= Math.min(5, last); y++) cols.push([y, y]);
+    if (last >= 6) cols.push([6, last]);
+    let h = '';
+    cols.forEach(([a, b]) => {
+      const items = state.projects.filter(p => { const [pa, pb] = yrs(p); return pa >= a && pb <= b; });
+      let spent = 0; for (let y = a; y <= b; y++) spent += r.projects[y] || 0;
+      const label = a === b ? `Year ${a}` : `Year ${a}–${b}`;
+      const isLast = b === last && a >= 6;
+      h += `<div class="rm-col" role="listitem">
+        <div class="rm-head">${label}</div>
+        <ul class="rm-list">${items.length ? items.map(p => `<li><div>${esc(p.n)}<span>${fmtM(+p.c || 0)}</span></div></li>`).join('') : (isLast ? '' : '<li class="none"><div>Nothing scheduled</div></li>')}${isLast ? `<li class="reserve"><div>Reserve Funding<span>Goal: $3M</span><em class="${r.bal[b] >= 3000000 ? 'ok' : 'short'}">${r.bal[b] >= 3000000 ? 'Met' : 'Balance: ' + fmtM(r.bal[b])}</em></div></li>` : ''}</ul>
+        <div class="rm-foot">Cost this year<b>${fmtM(spent)}</b>Balance after<b class="${r.bal[b] < 0 ? 'neg' : ''}">${fmtM(r.bal[b])}</b></div>
+      </div>`;
+    });
+    document.getElementById('roadmap').innerHTML = h;
+  }
+
+  function render() {
+    renderTotal();
+    renderDuration();
+    renderRatesState();
+    renderPerMember();
+    renderAttr();
+    renderObs();
+    renderCeiling();
+    const r = run(state);
+    renderVerdict(r); renderRoadmap(r); renderBal(r); renderFlow(r); renderYearTable(r);
+    const pt = state.projects.reduce((u, p) => u + (+p.c || 0), 0);
+    document.getElementById('projTotal').textContent = `${fmt$(pt)} total at today's prices (Board figure: $8.8M+)`;
+  }
+
+  document.getElementById('resetAll').addEventListener('click', () => {
+    Object.keys(DEFAULTS).forEach(k => { if (k !== 'projects') state[k] = DEFAULTS[k]; });
+    writeInputs(); markPreset(); render();
+  });
+
+  // Side navigation: highlight the section in view
+  (() => {
+    const links = [...document.querySelectorAll('.side a')];
+    const targets = links.map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+    const setOn = id => links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + id));
+    if (!('IntersectionObserver' in window)) return;
+    const seen = new Map();
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => seen.set(e.target.id, e.isIntersecting ? e.boundingClientRect.top : null));
+      const vis = targets.filter(t => seen.get(t.id) != null);
+      if (vis.length) setOn(vis[0].id);
+    }, { rootMargin: '-10% 0px -60% 0px' });
+    targets.forEach(t => io.observe(t));
+    setOn('top');
+  })();
+
+  writeInputs(); markPreset(); renderProjects(); renderPerMember(); render();
+})();
+</script>
+
+</body>
+</html>
