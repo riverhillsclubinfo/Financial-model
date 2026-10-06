@@ -281,7 +281,7 @@ h1, h2 { color: var(--head); font-weight: 800; letter-spacing: -.01em; }
 .obs li .mk.ok { background: var(--good-bg); color: var(--good); }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-.wrap > [id], .wrap [id="ceiling"] { scroll-margin-top: 20px; }
+.wrap > [id], .wrap [id="verdict"] { scroll-margin-top: 20px; }
 .side { display: grid; gap: 2px; font-size: .82rem; }
 .side-k { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
 .side a { color: var(--ink-2); text-decoration: none; padding: 6px 10px; border-radius: 4px; border-left: 3px solid transparent; }
@@ -296,7 +296,7 @@ html { scroll-behavior: smooth; }
   .side-k { display: none; }
   .side a { border-left: 0; border-bottom: 3px solid transparent; border-radius: 0; padding: 6px 8px; }
   .side a.on { border-bottom-color: #c9b97a; background: transparent; }
-  .wrap > [id], .wrap [id="ceiling"] { scroll-margin-top: 64px; }
+  .wrap > [id], .wrap [id="verdict"] { scroll-margin-top: 64px; }
 }
 .wrap { grid-template-columns: minmax(0, 1fr); }
 .wrap > * { min-width: 0; }
@@ -341,6 +341,47 @@ html { scroll-behavior: smooth; }
 .path p b { color: #ffffff; }
 .path-btn { justify-self: start; margin-top: 6px; background: #c9b97a; color: #2f3a23; border: 0; font-weight: 700; }
 .cta .cta-h { font-size: clamp(1.9rem, 4vw, 2.6rem) !important; }
+button.preset.realistic { border-color: #c9b97a; }
+button.preset.realistic[aria-pressed="true"] { background: #c9b97a; color: #2f3a23; border-color: #c9b97a; }
+.howto { display: grid; gap: 4px; padding: 12px 16px; border-radius: 8px; background: var(--t-olive); max-width: 62ch; }
+.howto b { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.howto p { font-size: .92rem; line-height: 1.5; color: var(--ink-2); margin: 0; }
+.howto a { color: var(--head); font-weight: 600; text-decoration: underline; text-decoration-color: #c9b97a; text-underline-offset: 3px; }
+.howto p.tryit { color: var(--ink); }
+.howto p.tryit b { font-size: inherit; letter-spacing: 0; text-transform: none; color: var(--head); }
+.hero > .howto, .hero > .presets { grid-column: 1 / -1; }
+.hero > .howto { max-width: none; grid-template-columns: auto minmax(0, 1fr); column-gap: 18px; align-items: baseline; padding: 14px 18px; }
+.hero > .howto > b { grid-row: span 2; white-space: nowrap; }
+@media (max-width: 760px) { .hero > .howto { grid-template-columns: minmax(0, 1fr); } .hero > .howto > b { grid-row: auto; } }
+.hero > .howto p { max-width: none; }
+.hero > .howto > b { font-size: .86rem; letter-spacing: .14em; }
+.hero > .howto > b { white-space: normal; max-width: 9.5em; line-height: 1.35; }
+.hero > .howto p { max-width: 88ch; }
+.assume > .attr { background: var(--card); }
+.roadmap { grid-auto-columns: minmax(140px, 1fr); }
+.rm-list li i { font-style: normal; color: var(--muted); font-size: .76rem; }
+.rm-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.rm-actions span { font-size: .82rem; color: var(--muted); }
+.rm-add { background: var(--olive); color: #ffffff; border-color: var(--olive); font-weight: 600; }
+.roadmap { grid-auto-columns: minmax(118px, 1fr) !important; gap: 8px !important; }
+.rm-head { font-size: 1.1rem !important; padding: 9px 4px !important; }
+.rm-list { padding: 10px 10px 4px !important; gap: 8px !important; }
+.rm-list li { font-size: .8rem !important; grid-template-columns: 8px 1fr !important; gap: 6px !important; }
+.rm-list li::before { width: 8px !important; height: 8px !important; }
+.rm-foot { padding: 7px 10px 9px !important; }
+.assume-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.assume-toggle { display: inline-flex; align-items: center; gap: 8px; background: var(--card); color: var(--head); border: 1px solid var(--line); font-weight: 600; }
+.assume-toggle .chev { transition: transform .2s; }
+.assume-toggle[aria-expanded="false"] .chev { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) { .assume-toggle .chev { transition: none; } }
+#assumeBody { display: grid; gap: 14px; }
+#assumeBody[hidden] { display: none !important; }
+#assumeBody > .attr { background: var(--card); }
+#inputs input.changed, #inputs select.changed { border-color: var(--out); box-shadow: inset 3px 0 0 var(--out); background: #fffaf0; }
+#inputs .check.changed { background: #fffaf0; box-shadow: inset 3px 0 0 var(--out); border-radius: 4px; padding: 4px 6px; margin: -4px -6px; }
+#assumeBody > .attr.changed { box-shadow: inset 4px 0 0 var(--out); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #inputs input.changed, :root:not([data-theme="light"]) #inputs select.changed, :root:not([data-theme="light"]) #inputs .check.changed { background: #2a2414; } }
+:root[data-theme="dark"] #inputs input.changed, :root[data-theme="dark"] #inputs select.changed, :root[data-theme="dark"] #inputs .check.changed { background: #2a2414; }
 </style>
 </head>
 <body>
@@ -350,7 +391,7 @@ html { scroll-behavior: smooth; }
   <a href="#top">Start</a>
   <a href="#assumptions">Settings</a>
   <a href="#roadmap-sec">Projects by year</a>
-  <a href="#ceiling">The shortfall</a>
+  <a href="#verdict">The shortfall</a>
   <a href="#charts">Cash charts</a>
   <a href="#observations">What stands out</a>
   <a href="#dues">Dues timeline</a>
@@ -366,32 +407,38 @@ html { scroll-behavior: smooth; }
     <div class="eyebrow-lines"><span>Capital improvement financial model</span></div>
     <h1>Does the capital plan pay for itself?</h1>
     <p class="lede">This page follows the Board's capital plan through each year: the up-front assessment and monthly capital dues coming in, $8.8M of projects going out, and the promise of no borrowing. It starts from an estimated 725 members, and every input below can be changed.</p>
+    </div>
+    <aside class="disclaimer" role="note" aria-label="Disclaimer">
+    <b>Independent analysis.</b> This is an independent look at the numbers: a financial model built by a member, based on communications sent through the Club. <b>This is not a River Hills–approved communication.</b> It was not produced, reviewed or endorsed by the Board or Club management. All figures are estimates; please check them against Club records before relying on them.
+    </aside>
+    <div class="howto">
+      <b>How to use this model</b>
+      <p>It opens on the Board's proposal, exactly as presented. Pick a scenario below, change the <a href="#assumptions">settings</a>, or edit the <a href="#projects">project list</a>, and every figure updates in real time. Use it to see what the member assessment would really need to be to accomplish the plan.</p>
+      <p class="tryit"><b>Try it:</b> raise the assessment, change how many members leave, add a price increase or move a project to a different year, then watch the shortfall, the dues timeline and the roadmap change.</p>
+    </div>
     <div class="presets" role="group" aria-label="Assumption sets">
     <span>Scenario</span>
     <button class="preset" data-preset="board" aria-pressed="true">Board case</button>
     <button class="preset" data-preset="moderate" aria-pressed="false">Middle case</button>
     <button class="preset" data-preset="stress" aria-pressed="false">Tough case</button>
+    <button class="preset realistic" data-preset="realistic" aria-pressed="false">Realistic outlook</button>
     </div>
-    </div>
-    <aside class="disclaimer" role="note" aria-label="Disclaimer">
-    <b>Independent analysis.</b> This is an independent look at the numbers: a financial model built by a member, based on communications sent through the Club. <b>This is not a River Hills–approved communication.</b> It was not produced, reviewed or endorsed by the Board or Club management. All figures are estimates; please check them against Club records before relying on them.
-    </aside>
   </header>
-
-  <div class="attr" role="group" aria-labelledby="attrLabel">
-    <div class="attr-head">
-      <label id="attrLabel" for="a1Range">Share of members who leave instead of paying</label>
-      <span class="attr-val"><span class="num" id="a1Out">10%</span> <span id="a1Count" class="attr-count"></span></span>
-    </div>
-    <input id="a1Range" type="range" min="0" max="30" step="1" aria-describedby="a1Help">
-    <div class="attr-scale" aria-hidden="true"><span style="--p:0">0%</span><span class="mark" style="--p:.3333">10%<br>likely</span><span style="--p:.6667">20%</span><span style="--p:1">30%</span></div>
-    <p id="a1Help" class="attr-help">A 10% departure rate is the working estimate here, and it matches the Board's own stress test. Anyone who leaves pays no assessment and no capital dues.</p>
-  </div>
 
   <section class="assume" id="assumptions" aria-labelledby="assumeTitle">
     <div class="assume-head">
-      <div class="assume-top"><h2 id="assumeTitle">Settings</h2><button type="button" class="btn reset-all" id="resetAll">Restore the Board's numbers</button></div>
-      <p>Everything begins at the Board's figures and an estimated member count. Adjust any value to see the effect.</p>
+      <div class="assume-top"><h2 id="assumeTitle">Settings</h2><div class="assume-btns"><button type="button" class="btn reset-all" id="resetAll">Restore the Board's numbers</button><button type="button" class="btn assume-toggle" id="assumeToggle" aria-expanded="true" aria-controls="assumeBody"><span class="tg-label">Hide settings</span><svg class="chev" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg></button></div></div>
+      <p>Everything begins at the Board's figures and an estimated member count. Try changing any number below and watch the outcome update across the page.</p>
+    </div>
+      <div id="assumeBody">
+  <div class="attr" role="group" aria-labelledby="attrLabel">
+      <div class="attr-head">
+        <label id="attrLabel" for="a1Range">Estimated attrition</label>
+        <span class="attr-val"><span class="num" id="a1Out">10%</span> <span id="a1Count" class="attr-count"></span></span>
+      </div>
+      <input id="a1Range" type="range" min="0" max="30" step="1" aria-describedby="a1Help">
+      <div class="attr-scale" aria-hidden="true"><span style="--p:0">0%</span><span class="mark" style="--p:.3333">10%<br>likely</span><span style="--p:.6667">20%</span><span style="--p:1">30%</span></div>
+      <p id="a1Help" class="attr-help">A 10% departure rate is the working estimate here, and it matches the Board's own stress test. Anyone who leaves pays no assessment and no capital dues.</p>
     </div>
     <form class="panel" id="inputs" autocomplete="off">
       <fieldset>
@@ -449,6 +496,7 @@ html { scroll-behavior: smooth; }
         <label class="check"><input id="routine" type="checkbox"><span>Pay routine replacements from this fund too<small>About $727K a year in 2026–30 per the long-range plan: roofs, HVAC, kitchen, course equipment</small></span></label>
       </fieldset>
     </form>
+    </div>
   </section>
 
   <section class="rm-sec" id="roadmap-sec" aria-labelledby="rmTitle">
@@ -458,10 +506,10 @@ html { scroll-behavior: smooth; }
     </div>
     <p class="rm-sub">When each Board project is scheduled, what that year costs, and the fund balance afterward.</p>
     <div class="roadmap-wrap"><div class="roadmap" id="roadmap" role="list" aria-label="Projects by year"></div></div>
+    <div class="rm-actions"><button type="button" class="btn rm-add" id="rmAdd">+ Add a project</button><span>Adds a row to the project list below, ready to name, price and schedule.</span></div>
     <p class="vs-note">Costs shown in today's dollars. "Cost this year" adds any price increase and overrun allowance from Settings. "Balance after" is the fund after that year's work.</p>
   </section>
 
-  <div class="banner" id="ceiling" role="note"></div>
 
   <div class="verdict" id="verdict"></div>
 
@@ -659,7 +707,8 @@ html { scroll-behavior: smooth; }
       { n: 'Kitchen Renovation', y: 4, c: 600000, s: 'Unpriced by Board; portion of remaining $8.8M' },
       { n: 'Pickleball & Court Fencing', y: 5, c: 600000, s: 'LRP: courts and fencing' },
       { n: 'Golf Beautification & Pool', y: 5, c: 265000, s: 'LRP: landscaping $125K + pool $140K' },
-      { n: 'Drainage Improvements', y: '6-7', c: 450000, s: 'LRP: drainage, spread over Years 6–7' },
+      { n: 'Drainage Improvements — Part 1', y: 6, c: 225000, s: 'LRP: drainage, first half of $450K' },
+      { n: 'Drainage Improvements — Part 2', y: 7, c: 225000, s: 'LRP: drainage, second half of $450K' },
     ],
   };
   const DEFAULTS = JSON.parse(JSON.stringify(state));
@@ -801,21 +850,41 @@ html { scroll-behavior: smooth; }
   });
   form.addEventListener('input', e => { if (e.target.id === 'a1') document.getElementById('a1Range').value = Math.min(30, state.a1); });
 
+  // "Realistic outlook": middle-case costs plus the assessment needed to never borrow
+  const ASSESS_KEYS = ['aFull', 'aSports', 'aSocial'];
+  function isRealistic() {
+    if (!Object.keys(PRESETS.moderate).every(k => state[k] === PRESETS.moderate[k])) return false;
+    const r = fundRates(PRESETS.moderate);
+    return !!r && state.aFull === r.full && state.aSports === r.sports && state.aSocial === r.social;
+  }
+  function applyRealistic() {
+    const r = fundRates(PRESETS.moderate);
+    if (!r) return false;
+    Object.assign(state, PRESETS.moderate, { aFull: r.full, aSports: r.sports, aSocial: r.social });
+    writeInputs(); markPreset(); render();
+    return true;
+  }
   document.querySelectorAll('button.preset').forEach(b => b.addEventListener('click', () => {
-    Object.assign(state, PRESETS[b.dataset.preset]);
+    const k = b.dataset.preset;
+    if (k === 'realistic') { applyRealistic(); return; }
+    const wasReal = isRealistic();
+    Object.assign(state, PRESETS[k]);
+    if (wasReal) ASSESS_KEYS.forEach(x => { state[x] = BOARD_RATES[x]; });
     writeInputs(); markPreset(); render();
   }));
   function markPreset() {
+    const real = isRealistic();
     document.querySelectorAll('button.preset').forEach(b => {
-      const pr = PRESETS[b.dataset.preset];
-      b.setAttribute('aria-pressed', String(Object.keys(pr).every(k => state[k] === pr[k])));
+      const k = b.dataset.preset;
+      const on = k === 'realistic' ? real : (!real || k !== 'moderate') && Object.keys(PRESETS[k]).every(x => state[x] === PRESETS[k][x]);
+      b.setAttribute('aria-pressed', String(on));
     });
   }
 
   // ---------- projects table ----------
   const projTable = document.getElementById('projTable');
   function renderProjects() {
-    const yrOpts = y => Array.from({ length: YEARS }, (_, i) => `<option value="${i + 1}"${String(y) === String(i + 1) ? ' selected' : ''}>Year ${i + 1}</option>`).join('') + `<option value="6-7"${String(y) === '6-7' ? ' selected' : ''}>Years 6–7</option>`;
+    const yrOpts = y => Array.from({ length: YEARS }, (_, i) => `<option value="${i + 1}"${String(y) === String(i + 1) ? ' selected' : ''}>Year ${i + 1}</option>`).join('') ;
     projTable.innerHTML = '<thead><tr><th>Project</th><th>Year</th><th class="num">Cost (current $)</th><th style="text-align:left">Source</th><th><span class="sr" style="position:absolute;left:-9999px">Remove</span></th></tr></thead><tbody>' +
       state.projects.map((p, i) => `<tr>
         <td><input type="text" id="pn${i}" data-i="${i}" data-f="n" value="${p.n.replace(/"/g, '&quot;')}" aria-label="Project name"></td>
@@ -836,6 +905,11 @@ html { scroll-behavior: smooth; }
     if (d == null) return;
     state.projects.splice(+d, 1);
     renderProjects(); render();
+  });
+  document.getElementById('rmAdd').addEventListener('click', () => {
+    document.getElementById('addProj').click();
+    const i = state.projects.length - 1, row = document.getElementById('pn' + i);
+    if (row) { row.closest('tr').scrollIntoView({ behavior: 'smooth', block: 'center' }); row.select(); row.focus({ preventScroll: true }); }
   });
   document.getElementById('addProj').addEventListener('click', () => {
     state.projects.push({ n: 'Project name', y: 1, c: 100000, s: '' });
@@ -982,15 +1056,6 @@ html { scroll-behavior: smooth; }
     document.getElementById('perMember').innerHTML = h + '</tbody>';
   }
 
-  function renderCeiling() {
-    const max = CATS.reduce((u, c) => u + ((state['n' + c.key] || 0) + (state.otherCat === c.key ? state.nOther : 0)) * ((+state['a' + c.key] || 0) + (+state['d' + c.key] || 0) * 108), 0);
-    const proj = state.projects.reduce((u, p) => u + (+p.c || 0), 0);
-    const n = state.nFull + state.nSports + state.nSocial + state.nOther;
-    const short = max < proj;
-    const el = document.getElementById('ceiling');
-    el.className = 'banner ' + (short ? 'is-bad' : 'is-ok');
-    el.innerHTML = `<span aria-hidden="true" class="bn-ic">${OBS_ICON[short ? 'bad' : 'ok']}</span><span><b>Best possible case:</b> if every one of ${fmtN(n)} members stays and pays in full, with no senior discounts or split payments, the plan brings in <b class="num">${fmtM(max)}</b> for <b class="num">${fmtM(proj)}</b> of work priced today. ${short ? 'A gap remains even before price increases, overruns or a reserve.' : `The ${Math.round((max / proj - 1) * 100)}% (${fmtM(max - proj)}) to spare has to absorb departures, inflation, overruns and a reserve, while most of the spending lands well before nine years of dues are collected.`}</span>`;
-  }
 
   function renderTotal() {
     document.getElementById('nTotal').textContent = fmtN(state.nFull + state.nSports + state.nSocial + state.nOther);
@@ -1073,27 +1138,29 @@ html { scroll-behavior: smooth; }
   function renderRoadmap(r) {
     const last = Math.max(1, ...state.projects.map(p => yrs(p)[1]));
     const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-    const cols = [];
-    for (let y = 1; y <= Math.min(5, last); y++) cols.push([y, y]);
-    if (last >= 6) cols.push([6, last]);
     let h = '';
-    cols.forEach(([a, b]) => {
-      const items = state.projects.filter(p => { const [pa, pb] = yrs(p); return pa >= a && pb <= b; });
-      let spent = 0; for (let y = a; y <= b; y++) spent += r.projects[y] || 0;
-      const label = a === b ? `Year ${a}` : `Year ${a}–${b}`;
-      const isLast = b === last && a >= 6;
+    for (let y = 1; y <= last; y++) {
+      // a project spread over several years appears in each of its years with that year's share
+      const items = state.projects.filter(p => { const [pa, pb] = yrs(p); return y >= pa && y <= pb; });
+      const isLast = y === last && y >= 6;
+      const li = items.map(p => {
+        const [pa, pb] = yrs(p), n = pb - pa + 1;
+        const note = n > 1 ? ` <i>(part ${y - pa + 1} of ${n})</i>` : '';
+        return `<li><div>${esc(p.n)}${note}<span>${fmtM((+p.c || 0) / n)}</span></div></li>`;
+      }).join('');
+      const reserve = isLast ? `<li class="reserve"><div>Reserve Funding<span>Goal: $3M</span><em class="${r.bal[y] >= 3000000 ? 'ok' : 'short'}">${r.bal[y] >= 3000000 ? 'Met' : 'Balance: ' + fmtM(r.bal[y])}</em></div></li>` : '';
       h += `<div class="rm-col" role="listitem">
-        <div class="rm-head">${label}</div>
-        <ul class="rm-list">${items.length ? items.map(p => `<li><div>${esc(p.n)}<span>${fmtM(+p.c || 0)}</span></div></li>`).join('') : (isLast ? '' : '<li class="none"><div>Nothing scheduled</div></li>')}${isLast ? `<li class="reserve"><div>Reserve Funding<span>Goal: $3M</span><em class="${r.bal[b] >= 3000000 ? 'ok' : 'short'}">${r.bal[b] >= 3000000 ? 'Met' : 'Balance: ' + fmtM(r.bal[b])}</em></div></li>` : ''}</ul>
-        <div class="rm-foot">Cost this year<b>${fmtM(spent)}</b>Balance after<b class="${r.bal[b] < 0 ? 'neg' : ''}">${fmtM(r.bal[b])}</b></div>
+        <div class="rm-head">Year ${y}</div>
+        <ul class="rm-list">${li || (isLast ? '' : '<li class="none"><div>Nothing scheduled</div></li>')}${reserve}</ul>
+        <div class="rm-foot">Cost this year<b>${fmtM(r.projects[y] || 0)}</b>Balance after<b class="${r.bal[y] < 0 ? 'neg' : ''}">${fmtM(r.bal[y])}</b></div>
       </div>`;
-    });
+    }
     document.getElementById('roadmap').innerHTML = h;
   }
 
   // Assessment needed for the fund to never go negative, keeping monthly dues as set
   function fundRates(preset) {
-    const base = Object.assign({}, state, preset);
+    const base = Object.assign({}, state, preset, { aFull: BOARD_RATES.aFull, aSports: BOARD_RATES.aSports, aSocial: BOARD_RATES.aSocial });
     const at = f => Object.assign({}, base, { aFull: base.aFull * f, aSports: base.aSports * f, aSocial: base.aSocial * f });
     const ok = f => run(at(f)).minBal >= 0;
     if (ok(1)) return { f: 1, full: base.aFull, sports: base.aSports, social: base.aSocial, end: duesEnd(at(1)).year };
@@ -1116,13 +1183,19 @@ html { scroll-behavior: smooth; }
     document.getElementById('loadRealistic').hidden = !m;
   }
   document.getElementById('loadRealistic').addEventListener('click', () => {
-    if (!realisticRates) return;
-    Object.assign(state, PRESETS.moderate, { aFull: realisticRates.full, aSports: realisticRates.sports, aSocial: realisticRates.social });
-    writeInputs(); markPreset(); render();
-    document.getElementById('ceiling').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (applyRealistic()) document.getElementById('top').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 
+  // Highlight every setting that differs from the Board's starting numbers
+  function renderChanged() {
+    const ids = ['nFull', 'nSports', 'nSocial', 'nOther', 'a1', 'aOn', 'grow', 'senior', 'exempt', 'split', 'esc', 'cont', 'start', 'earn', 'borrow', 'senRate', 'otherCat', 'aFull', 'aSports', 'aSocial', 'dFull', 'dSports', 'dSocial'];
+    ids.forEach(id => { const el = document.getElementById(id); if (el) el.classList.toggle('changed', String(state[id]) !== String(DEFAULTS[id])); });
+    ['newAssess', 'credits', 'routine'].forEach(id => { const el = document.getElementById(id); if (el) el.closest('.check').classList.toggle('changed', state[id] !== DEFAULTS[id]); });
+    const sl = document.querySelector('.attr'); if (sl) sl.classList.toggle('changed', state.a1 !== DEFAULTS.a1);
+  }
+
   function render() {
+    renderChanged();
     renderTotal();
     renderFund();
     renderDuration();
@@ -1130,7 +1203,6 @@ html { scroll-behavior: smooth; }
     renderPerMember();
     renderAttr();
     renderObs();
-    renderCeiling();
     const r = run(state);
     renderVerdict(r); renderRoadmap(r); renderBal(r); renderFlow(r); renderYearTable(r);
     const pt = state.projects.reduce((u, p) => u + (+p.c || 0), 0);
@@ -1157,6 +1229,18 @@ html { scroll-behavior: smooth; }
     targets.forEach(t => io.observe(t));
     setOn('top');
   })();
+
+  // Settings accordion
+  const assumeBody = document.getElementById('assumeBody'), assumeToggle = document.getElementById('assumeToggle');
+  function setAssumeOpen(open) {
+    assumeBody.hidden = !open;
+    assumeToggle.setAttribute('aria-expanded', String(open));
+    assumeToggle.querySelector('.tg-label').textContent = open ? 'Hide settings' : 'Show settings';
+    try { localStorage.setItem('rh-settings-open', open ? '1' : '0'); } catch (e) {}
+  }
+  assumeToggle.addEventListener('click', () => setAssumeOpen(assumeBody.hidden));
+  document.querySelectorAll('a[href="#assumptions"]').forEach(a => a.addEventListener('click', () => setAssumeOpen(true)));
+  try { if (localStorage.getItem('rh-settings-open') === '0') setAssumeOpen(false); } catch (e) {}
 
   writeInputs(); markPreset(); renderProjects(); renderPerMember(); render();
 })();
